@@ -1,26 +1,288 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ============================================================
+   THEME 01 — EDITORIAL (default)
+   Warm paper, hard black type, orange-red accent
+   ============================================================ */
+:root,
+[data-theme="editorial"] {
+  --bg: #f5f1ed;
+  --bg-alt: #ece5db;
+  --fg: #0a0a0a;
+  --muted: #77736f;
+  --accent: #e84b32;
+  --accent-fg: #f5f1ed;
+  --border: rgba(9, 9, 9, 0.16);
+  --border-strong: rgba(9, 9, 9, 0.85);
+  --grain-opacity: 0.05;
+  --radius: 0px;
+  --font-display: var(--font-grotesk);
+  --tracking-display: -0.02em;
+  --chart-line: #0a0a0a;
+  --chart-point: #e84b32;
+  --chart-grid: rgba(9, 9, 9, 0.1);
+  --chart-axis: #77736f;
+  --chart-label: #0a0a0a;
+  --chart-annotation: #e84b32;
+  --chart-tooltip-bg: #0a0a0a;
+  --chart-tooltip-fg: #f5f1ed;
+  --motion-scale: 1;
+  --cursor-blend: multiply;
+}
+
+/* ============================================================
+   THEME 02 — TERMINAL
+   Near-black, off-white, acid green, monospace personality
+   ============================================================ */
+[data-theme="terminal"] {
+  --bg: #07090a;
+  --bg-alt: #0e1210;
+  --fg: #e7f4ea;
+  --muted: #5b6b60;
+  --accent: #43ff8f;
+  --accent-fg: #051006;
+  --border: rgba(231, 244, 234, 0.18);
+  --border-strong: rgba(231, 244, 234, 0.9);
+  --grain-opacity: 0.09;
+  --radius: 0px;
+  --font-display: var(--font-mono);
+  --tracking-display: -0.01em;
+  --chart-line: #43ff8f;
+  --chart-point: #e7f4ea;
+  --chart-grid: rgba(231, 244, 234, 0.09);
+  --chart-axis: #5b6b60;
+  --chart-label: #e7f4ea;
+  --chart-annotation: #43ff8f;
+  --chart-tooltip-bg: #43ff8f;
+  --chart-tooltip-fg: #051006;
+  --motion-scale: 0.85;
+  --cursor-blend: screen;
+}
+
+/* ============================================================
+   THEME 03 — CHROME
+   Silver, white, cool blue, digital / futuristic
+   ============================================================ */
+[data-theme="chrome"] {
+  --bg: #e8eaed;
+  --bg-alt: #dadde3;
+  --fg: #0f1216;
+  --muted: #6b7280;
+  --accent: #2f6fed;
+  --accent-fg: #f4f7ff;
+  --border: rgba(15, 18, 22, 0.14);
+  --border-strong: rgba(15, 18, 22, 0.85);
+  --grain-opacity: 0.02;
+  --radius: 3px;
+  --font-display: var(--font-grotesk);
+  --tracking-display: -0.015em;
+  --chart-line: #0f1216;
+  --chart-point: #2f6fed;
+  --chart-grid: rgba(15, 18, 22, 0.09);
+  --chart-axis: #6b7280;
+  --chart-label: #0f1216;
+  --chart-annotation: #2f6fed;
+  --chart-tooltip-bg: #0f1216;
+  --chart-tooltip-fg: #f4f7ff;
+  --motion-scale: 1.1;
+  --cursor-blend: normal;
+}
+
+/* ============================================================
+   THEME 04 — PAPER
+   Newspaper, warm paper, black ink, red accent
+   ============================================================ */
+[data-theme="paper"] {
+  --bg: #f1ebe0;
+  --bg-alt: #e6dcc9;
+  --fg: #16130d;
+  --muted: #6e6455;
+  --accent: #b3251a;
+  --accent-fg: #f1ebe0;
+  --border: rgba(22, 19, 13, 0.24);
+  --border-strong: rgba(22, 19, 13, 0.9);
+  --grain-opacity: 0.14;
+  --radius: 0px;
+  --font-display: var(--font-grotesk);
+  --tracking-display: -0.01em;
+  --chart-line: #16130d;
+  --chart-point: #b3251a;
+  --chart-grid: rgba(22, 19, 13, 0.14);
+  --chart-axis: #6e6455;
+  --chart-label: #16130d;
+  --chart-annotation: #b3251a;
+  --chart-tooltip-bg: #16130d;
+  --chart-tooltip-fg: #f1ebe0;
+  --motion-scale: 0.9;
+  --cursor-blend: multiply;
+}
+
+/* ============================================================
+   THEME 05 — NOCTURNE
+   Dark, violet/blue, soft accent, atmospheric (music-suited)
+   ============================================================ */
+[data-theme="nocturne"] {
+  --bg: #0d0c15;
+  --bg-alt: #171526;
+  --fg: #eae7f6;
+  --muted: #79738f;
+  --accent: #a08cf5;
+  --accent-fg: #0d0c15;
+  --border: rgba(234, 231, 246, 0.14);
+  --border-strong: rgba(234, 231, 246, 0.85);
+  --grain-opacity: 0.1;
+  --radius: 6px;
+  --font-display: var(--font-grotesk);
+  --tracking-display: -0.02em;
+  --chart-line: #a08cf5;
+  --chart-point: #eae7f6;
+  --chart-grid: rgba(234, 231, 246, 0.09);
+  --chart-axis: #79738f;
+  --chart-label: #eae7f6;
+  --chart-annotation: #a08cf5;
+  --chart-tooltip-bg: #a08cf5;
+  --chart-tooltip-fg: #0d0c15;
+  --motion-scale: 1.15;
+  --cursor-blend: screen;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--bg);
+  --color-background-alt: var(--bg-alt);
+  --color-foreground: var(--fg);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-fg);
+  --color-border: var(--border);
+  --font-display: var(--font-display);
+  --font-meta: var(--font-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-display), "Space Grotesk", system-ui, sans-serif;
+  letter-spacing: var(--tracking-display);
+  transition: background-color 0.5s ease, color 0.5s ease;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+
+.font-meta {
+  font-family: var(--font-mono), "IBM Plex Mono", monospace;
+  letter-spacing: 0.04em;
+}
+
+.hairline {
+  border-color: var(--border);
+}
+
+.text-muted-fg {
+  color: var(--muted);
+}
+
+/* Focus visibility -- never sacrificed for aesthetics */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Custom cursor: hide native cursor only when the system is active (desktop, fine pointer) */
+html.custom-cursor-active,
+html.custom-cursor-active a,
+html.custom-cursor-active button {
+  cursor: none;
+}
+
+@media (pointer: coarse) {
+  html.custom-cursor-active {
+    cursor: auto;
+  }
+}
+
+/* Grain overlay: canvas-driven, layered above content, ignores pointer events */
+.grain-layer {
+  position: fixed;
+  inset: -64px;
+  z-index: 40;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  mix-blend-mode: overlay;
+  background-repeat: repeat;
+  animation: grain-shift 9s steps(4) infinite;
+}
+
+@keyframes grain-shift {
+  0% { transform: translate3d(0, 0, 0); }
+  25% { transform: translate3d(-16px, 8px, 0); }
+  50% { transform: translate3d(8px, -16px, 0); }
+  75% { transform: translate3d(-8px, -8px, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain-layer {
+    animation: none;
+  }
+}
+
+/* Music-reactive system: while a track is playing, <html> carries .audio-live and a few
+   elements breathe very slightly in response -- restrained, CSS-only, no per-frame JS. */
+@keyframes grain-pulse {
+  0%, 100% { opacity: var(--grain-opacity); }
+  50% { opacity: calc(var(--grain-opacity) + 0.035); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.82; }
+}
+
+html.audio-live .grain-layer {
+  animation: grain-shift 9s steps(4) infinite, grain-pulse 2.4s ease-in-out infinite;
+}
+
+html.audio-live .audio-pulse-target {
+  animation: pulse-soft 2.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.audio-live .grain-layer,
+  html.audio-live .audio-pulse-target {
+    animation: none;
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
 }
