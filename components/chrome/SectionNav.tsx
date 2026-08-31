@@ -1,10 +1,46 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { NAV_ITEMS } from "@/data/nav";
 import { SITE } from "@/data/site-config";
 import { cx } from "@/lib/utils";
+
+const NAV_COLLAPSE_KEY = "kg-portfolio-nav-collapsed";
+// localStorage's own "storage" event never fires in the tab that made the write, so a local
+// custom event covers that case -- same pattern as the color/mode switches, just without a
+// DOM attribute to observe.
+const NAV_COLLAPSE_EVENT = "kg-nav-collapse-change";
+
+function subscribeCollapsed(callback: () => void) {
+  window.addEventListener("storage", callback);
+  window.addEventListener(NAV_COLLAPSE_EVENT, callback);
+  return () => {
+    window.removeEventListener("storage", callback);
+    window.removeEventListener(NAV_COLLAPSE_EVENT, callback);
+  };
+}
+
+function getCollapsedSnapshot() {
+  try {
+    return localStorage.getItem(NAV_COLLAPSE_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function getCollapsedServerSnapshot() {
+  return false;
+}
+
+function setCollapsedStorage(value: boolean) {
+  try {
+    localStorage.setItem(NAV_COLLAPSE_KEY, value ? "1" : "0");
+  } catch {
+    // storage unavailable -- the dispatch below still flips the UI for this session
+  }
+  window.dispatchEvent(new Event(NAV_COLLAPSE_EVENT));
+}
 
 function scrollToSection(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -12,50 +48,82 @@ function scrollToSection(id: string) {
 
 export function SectionNav({ activeId }: { activeId: string }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const collapsed = useSyncExternalStore(subscribeCollapsed, getCollapsedSnapshot, getCollapsedServerSnapshot);
   const activeIndex = NAV_ITEMS.findIndex((item) => item.id === activeId);
+  const activeLabel = NAV_ITEMS[activeIndex]?.index ?? "01";
+
+  function toggleCollapsed() {
+    setCollapsedStorage(!collapsed);
+  }
 
   return (
     <>
-      {/* Desktop: fixed right-side rail */}
+      {/* Desktop: fixed right-side rail, collapsible down to a small index tab */}
       <nav
         aria-label="Section navigation"
-        className="fixed right-6 top-1/2 z-30 hidden -translate-y-1/2 flex-col items-end gap-3 border border-border bg-background/85 px-4 py-5 backdrop-blur-sm lg:flex"
+        className={cx(
+          "fixed right-6 top-1/2 z-30 hidden -translate-y-1/2 flex-col border border-border bg-background lg:flex",
+          collapsed ? "items-center gap-2 px-2.5 py-3" : "items-end gap-3 px-4 py-5"
+        )}
       >
-        {NAV_ITEMS.map((item) => {
-          const isActive = item.id === activeId;
-          return (
-            <button
-              key={item.id}
-              onClick={() => scrollToSection(item.id)}
-              className="group flex items-center gap-3 font-meta text-[11px] uppercase tracking-widest"
-              aria-current={isActive ? "true" : undefined}
-            >
-              <span
-                className={cx(
-                  "transition-colors duration-300",
-                  isActive ? "text-foreground" : "text-muted-fg group-hover:text-foreground"
-                )}
-              >
-                {item.label}
-              </span>
-              <span className="relative h-px w-6 bg-border overflow-hidden">
-                {isActive && (
-                  <motion.span
-                    layoutId="nav-strike"
-                    className="rhythm-pulse-target absolute inset-0 bg-accent"
-                    transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                  />
-                )}
-              </span>
-              <span className={cx("tabular-nums", isActive ? "text-foreground" : "text-muted-fg")}>
-                {item.index}
-              </span>
-            </button>
-          );
-        })}
-        <div className="mt-2 font-meta text-[10px] text-muted-fg tabular-nums">
-          {String(activeIndex + 1).padStart(2, "0")} / {String(NAV_ITEMS.length).padStart(2, "0")}
-        </div>
+        <button
+          onClick={toggleCollapsed}
+          aria-expanded={!collapsed}
+          aria-controls="desktop-nav-list"
+          aria-label={collapsed ? "Expand navigation" : "Collapse navigation"}
+          data-cursor={collapsed ? "EXPAND" : "COLLAPSE"}
+          className="font-meta text-[11px] text-muted-fg transition-colors hover:text-accent"
+        >
+          {collapsed ? "‹" : "›"}
+        </button>
+
+        {collapsed ? (
+          <button
+            onClick={toggleCollapsed}
+            aria-label={`Expand navigation, currently on section ${activeLabel}`}
+            className="font-meta text-[11px] tabular-nums text-accent"
+          >
+            {activeLabel}
+          </button>
+        ) : (
+          <div id="desktop-nav-list" className="flex flex-col items-end gap-3">
+            {NAV_ITEMS.map((item) => {
+              const isActive = item.id === activeId;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className="group flex items-center gap-3 font-meta text-[11px] uppercase tracking-widest"
+                  aria-current={isActive ? "true" : undefined}
+                >
+                  <span
+                    className={cx(
+                      "transition-colors duration-300",
+                      isActive ? "text-foreground" : "text-muted-fg group-hover:text-foreground"
+                    )}
+                  >
+                    {item.label}
+                  </span>
+                  <span className="relative h-px w-6 bg-border overflow-hidden">
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-strike"
+                        className="rhythm-pulse-target absolute inset-0 bg-accent"
+                        transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                      />
+                    )}
+                  </span>
+                  <span className={cx("tabular-nums", isActive ? "text-foreground" : "text-muted-fg")}>
+                    {item.index}
+                  </span>
+                </button>
+              );
+            })}
+            <div className="mt-2 font-meta text-[10px] text-muted-fg tabular-nums">
+              {String(activeIndex + 1).padStart(2, "0")} / {String(NAV_ITEMS.length).padStart(2, "0")}
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Mobile: an editorial index control, not a hamburger -- doubles as a live

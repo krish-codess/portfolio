@@ -21,7 +21,8 @@ export function Music() {
         </h2>
         <p className="mt-6 max-w-lg font-meta text-[12px] leading-relaxed text-muted-fg">
           Not a producer, not a DAW, not a discography. Just a drummer with wide taste and a
-          playlist for every mood. The pattern below is a diagram, not a recording.
+          playlist for every mood. The pattern below is synthesized live in your browser --
+          press play to actually hear it.
         </p>
       </Reveal>
 

@@ -9,7 +9,7 @@ export function Hero() {
   const now = useClock();
 
   return (
-    <section id="intro" className="relative flex min-h-svh flex-col overflow-hidden px-5 pt-5 sm:px-8 sm:pt-8">
+    <section id="intro" className="relative mx-auto flex min-h-svh w-full max-w-[1760px] flex-col overflow-hidden px-5 pt-5 sm:px-8 sm:pt-8">
       {/* browser-window style framing, reinterpreted */}
       <div className="flex items-center justify-between border border-border px-4 py-2.5 font-meta text-[11px] uppercase tracking-widest text-muted-fg">
         <div className="flex items-center gap-2">
