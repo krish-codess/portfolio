@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider, THEME_INIT_SCRIPT } from "@/lib/theme/ThemeProvider";
+import { AppearanceProvider, APPEARANCE_INIT_SCRIPT } from "@/lib/theme/AppearanceProvider";
 import { FocusProvider } from "@/lib/focus/FocusContext";
-import { AudioReactivityProvider, AudioReactivityBridge } from "@/lib/audio/AudioReactivityContext";
+import { RhythmReactivityProvider, RhythmReactivityBridge } from "@/lib/rhythm/RhythmReactivityContext";
 import { SITE } from "@/data/site-config";
 
 const grotesk = Space_Grotesk({
@@ -43,17 +43,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+        <script dangerouslySetInnerHTML={{ __html: APPEARANCE_INIT_SCRIPT }} />
       </head>
       <body className={`${grotesk.variable} ${plexMono.variable} antialiased`}>
-        <ThemeProvider>
+        <AppearanceProvider>
           <FocusProvider>
-            <AudioReactivityProvider>
-              <AudioReactivityBridge />
+            <RhythmReactivityProvider>
+              <RhythmReactivityBridge />
               {children}
-            </AudioReactivityProvider>
+            </RhythmReactivityProvider>
           </FocusProvider>
-        </ThemeProvider>
+        </AppearanceProvider>
       </body>
     </html>
   );

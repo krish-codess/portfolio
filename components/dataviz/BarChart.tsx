@@ -15,11 +15,13 @@ export function BarChart({
   data,
   yLabel,
   onHover,
+  palette = ["var(--chart-point)"],
 }: {
   data: CategoryPoint[];
   xLabel?: string;
   yLabel?: string;
   onHover?: (label: string | null) => void;
+  palette?: string[];
 }) {
   const [active, setActive] = useState<number | null>(null);
 
@@ -59,8 +61,9 @@ export function BarChart({
               whileInView={{ scaleY: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.04, ease: [0.16, 1, 0.3, 1] }}
-              fill={isActive ? "var(--chart-annotation)" : "var(--chart-point)"}
-              style={{ cursor: "pointer", transition: "fill 0.15s ease", transformOrigin: "bottom", transformBox: "fill-box" }}
+              fill={palette[i % palette.length]}
+              fillOpacity={isActive ? 1 : 0.82}
+              style={{ cursor: "pointer", transition: "fill-opacity 0.15s ease", transformOrigin: "bottom", transformBox: "fill-box" }}
               onMouseEnter={() => hover(i)}
               onMouseLeave={() => hover(null)}
               onFocus={() => hover(i)}

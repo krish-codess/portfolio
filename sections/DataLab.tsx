@@ -16,9 +16,9 @@ export function DataLab({ visitedCount, totalSections }: { visitedCount: number;
           NEED TO COLLECT
         </h2>
         <p className="mt-6 max-w-lg font-meta text-[12px] leading-relaxed text-muted-fg">
-          A small archive of measurements about things that probably didn&apos;t need measuring. The
-          subjects are mundane; the visualizations are the point. Everything below is clearly labeled
-          -- nothing is presented as real personal data unless it says so.
+          An archive of measurements about things that probably didn&apos;t need measuring. The subjects
+          are mundane; the visualizations are the point. Everything below is clearly labeled -- nothing
+          is presented as real personal data unless it says so.
         </p>
       </Reveal>
 

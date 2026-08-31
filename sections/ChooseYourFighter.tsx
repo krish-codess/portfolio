@@ -2,14 +2,16 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { FocusId, FOCUS_META, useFocus } from "@/lib/focus/FocusContext";
-import { useTheme } from "@/lib/theme/ThemeProvider";
-import { ThemeId } from "@/lib/theme/themes";
+import { useAppearance } from "@/lib/theme/AppearanceProvider";
+import { DesignModeId } from "@/lib/theme/designModes";
 import { Meta } from "@/components/typography/Meta";
 import { Reveal } from "@/components/typography/Reveal";
 import { cx } from "@/lib/utils";
 
-const FOCUS_THEME: Record<FocusId, ThemeId> = {
-  data: "chrome",
+// Choosing a fighter shifts the DESIGN MODE (not color) -- a real, visible change in the
+// site's structural language, while leaving whatever color scheme the visitor already has.
+const FOCUS_MODE: Record<FocusId, DesignModeId> = {
+  data: "digital",
   code: "terminal",
   design: "editorial",
   music: "nocturne",
@@ -19,11 +21,11 @@ const OPTIONS: FocusId[] = ["data", "code", "design", "music"];
 
 export function ChooseYourFighter() {
   const { focus, setFocus } = useFocus();
-  const { setTheme } = useTheme();
+  const { setDesignMode } = useAppearance();
 
   function choose(id: FocusId) {
     setFocus(id);
-    setTheme(FOCUS_THEME[id]);
+    setDesignMode(FOCUS_MODE[id]);
     window.setTimeout(() => {
       document.getElementById(FOCUS_META[id].sectionId)?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 500);

@@ -15,7 +15,15 @@ function round(n: number) {
   return Math.round(n * 100) / 100;
 }
 
-export function NetworkChart({ data, onHover }: { data: NetworkData; onHover?: (label: string | null) => void }) {
+export function NetworkChart({
+  data,
+  onHover,
+  palette = ["var(--chart-point)"],
+}: {
+  data: NetworkData;
+  onHover?: (label: string | null) => void;
+  palette?: string[];
+}) {
   const [active, setActive] = useState<string | null>(null);
 
   const positions = useMemo(() => {
@@ -108,12 +116,13 @@ export function NetworkChart({ data, onHover }: { data: NetworkData; onHover?: (
               cx={p.x}
               cy={p.y}
               r={r}
-              fill={isActive ? "var(--chart-annotation)" : "var(--chart-point)"}
+              fill={palette[node.group % palette.length]}
+              fillOpacity={isActive ? 1 : 0.9}
               initial={{ opacity: 0, scale: 0.6 }}
               whileInView={{ opacity: dim ? 0.25 : 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.03 }}
-              style={{ cursor: "pointer", transformOrigin: `${p.x}px ${p.y}px`, transition: "fill 0.15s ease" }}
+              style={{ cursor: "pointer", transformOrigin: `${p.x}px ${p.y}px` }}
               onMouseEnter={() => hover(node.id)}
               onMouseLeave={() => hover(null)}
               onFocus={() => hover(node.id)}

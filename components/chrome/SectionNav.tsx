@@ -42,7 +42,7 @@ export function SectionNav({ activeId }: { activeId: string }) {
                 {isActive && (
                   <motion.span
                     layoutId="nav-strike"
-                    className="audio-pulse-target absolute inset-0 bg-accent"
+                    className="rhythm-pulse-target absolute inset-0 bg-accent"
                     transition={{ type: "spring", stiffness: 350, damping: 30 }}
                   />
                 )}
@@ -58,27 +58,22 @@ export function SectionNav({ activeId }: { activeId: string }) {
         </div>
       </nav>
 
-      {/* Mobile: compact toggle + full-screen drawer */}
+      {/* Mobile: an editorial index control, not a hamburger -- doubles as a live
+          position indicator (shows the current section number) and the menu trigger. */}
       <div className="fixed right-4 top-4 z-50 lg:hidden">
         <button
           onClick={() => setMobileOpen((v) => !v)}
           aria-expanded={mobileOpen}
           aria-controls="mobile-nav"
           aria-label={mobileOpen ? "Close navigation" : "Open navigation"}
-          className="flex h-11 w-11 flex-col items-center justify-center gap-1.5 border border-border bg-background/90 backdrop-blur"
+          className="flex min-w-14 flex-col items-center justify-center gap-0.5 border border-border bg-background/90 px-3 py-2 backdrop-blur"
         >
-          <span
-            className={cx(
-              "block h-px w-5 bg-foreground transition-transform duration-300",
-              mobileOpen && "translate-y-[3.5px] rotate-45"
-            )}
-          />
-          <span
-            className={cx(
-              "block h-px w-5 bg-foreground transition-transform duration-300",
-              mobileOpen && "-translate-y-[3.5px] -rotate-45"
-            )}
-          />
+          <span className="font-meta text-[8px] uppercase tracking-widest text-muted-fg">
+            {mobileOpen ? "CLOSE" : "INDEX"}
+          </span>
+          <span className="font-meta text-sm tabular-nums text-foreground">
+            {mobileOpen ? "×" : String(activeIndex + 1).padStart(2, "0")}
+          </span>
         </button>
       </div>
 

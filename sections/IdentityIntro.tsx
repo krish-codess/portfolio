@@ -112,7 +112,7 @@ export function IdentityIntro() {
   const [hovered, setHovered] = useState<string | null>(null);
 
   return (
-    <section className="border-t border-border px-5 py-20 sm:px-8 sm:py-28">
+    <section id="identity" className="border-t border-border px-5 py-20 sm:px-8 sm:py-28">
       <Reveal>
         <SectionLabel index="—" label="FOUR DISCIPLINES, ONE SYSTEM" />
       </Reveal>

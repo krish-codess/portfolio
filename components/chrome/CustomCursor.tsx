@@ -84,25 +84,29 @@ export function CustomCursor() {
 
   const displayLabel = easterEgg ? EASTER_EGG_LABEL : label;
 
+  // .cursor-layer is a dedicated top-level stacking context (z-index: 200, see
+  // globals.css) that sits above every other fixed UI element on the site -- nav, menu,
+  // theme controls, modals -- so the cursor never disappears behind interactive chrome.
   return (
-    <div
-      ref={dotRef}
-      aria-hidden="true"
-      className="pointer-events-none fixed left-0 top-0 z-50 flex items-center justify-center will-change-transform"
-      style={{ transition: "width 0.2s ease, height 0.2s ease" }}
-    >
+    <div className="cursor-layer" aria-hidden="true">
       <div
-        className="flex items-center justify-center whitespace-nowrap rounded-full font-meta text-[10px] uppercase transition-all duration-200 ease-out"
-        style={{
-          width: displayLabel ? "auto" : pressed ? 10 : 14,
-          height: displayLabel ? 34 : pressed ? 10 : 14,
-          padding: displayLabel ? "0 14px" : 0,
-          background: "var(--fg)",
-          color: "var(--bg)",
-          mixBlendMode: "var(--cursor-blend)" as React.CSSProperties["mixBlendMode"],
-        }}
+        ref={dotRef}
+        className="pointer-events-none absolute left-0 top-0 flex items-center justify-center will-change-transform"
+        style={{ transition: "width 0.2s ease, height 0.2s ease" }}
       >
-        {displayLabel}
+        <div
+          className="flex items-center justify-center whitespace-nowrap rounded-full font-meta text-[10px] uppercase transition-all duration-200 ease-out"
+          style={{
+            width: displayLabel ? "auto" : pressed ? 10 : 14,
+            height: displayLabel ? 34 : pressed ? 10 : 14,
+            padding: displayLabel ? "0 14px" : 0,
+            background: "var(--fg)",
+            color: "var(--bg)",
+            mixBlendMode: "multiply",
+          }}
+        >
+          {displayLabel}
+        </div>
       </div>
     </div>
   );

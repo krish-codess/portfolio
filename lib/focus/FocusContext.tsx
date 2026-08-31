@@ -6,9 +6,9 @@ export type FocusId = "data" | "code" | "design" | "music";
 
 export const FOCUS_META: Record<FocusId, { label: string; sectionId: string; description: string }> = {
   data: { label: "DATA", sectionId: "data", description: "VISUALIZATIONS, EXPERIMENTS, THE CORRELATION MACHINE" },
-  code: { label: "CODE", sectionId: "software", description: "SYSTEMS, STACKS, THE THINGS THAT RUN" },
-  design: { label: "DESIGN", sectionId: "design", description: "VISUAL WORK, TYPE, IMAGE" },
-  music: { label: "MUSIC", sectionId: "music", description: "TRACKS, WAVEFORMS, SOUND" },
+  code: { label: "CODE", sectionId: "work", description: "PROJECTS, STACKS, THE THINGS THAT RUN" },
+  design: { label: "DESIGN", sectionId: "identity", description: "TYPE, VISUAL SYSTEMS, FORM" },
+  music: { label: "MUSIC", sectionId: "music", description: "DRUMS, LISTENING, RHYTHM" },
 };
 
 interface FocusContextValue {

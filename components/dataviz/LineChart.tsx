@@ -14,11 +14,13 @@ export function LineChart({
   xLabel,
   yLabel,
   onHover,
+  color = "var(--chart-point)",
 }: {
   data: XYPoint[];
   xLabel?: string;
   yLabel?: string;
   onHover?: (label: string | null) => void;
+  color?: string;
 }) {
   const [active, setActive] = useState<number | null>(null);
 
@@ -45,12 +47,12 @@ export function LineChart({
       {[0.25, 0.5, 0.75].map((t) => (
         <line key={t} x1={PAD} x2={W - PAD} y1={PAD + t * (H - 2 * PAD)} y2={PAD + t * (H - 2 * PAD)} stroke="var(--chart-grid)" strokeWidth={1} />
       ))}
-      <path d={area} fill="var(--chart-line)" opacity={0.07} />
+      <path d={area} fill={color} opacity={0.12} />
       <motion.path
         d={path}
         fill="none"
-        stroke="var(--chart-line)"
-        strokeWidth={1.75}
+        stroke={color}
+        strokeWidth={2}
         initial={{ pathLength: 0 }}
         whileInView={{ pathLength: 1 }}
         viewport={{ once: true }}
@@ -62,7 +64,7 @@ export function LineChart({
           cx={sx(d.x)}
           cy={sy(d.y)}
           r={active === i ? 5 : 2.5}
-          fill={active === i ? "var(--chart-annotation)" : "var(--chart-point)"}
+          fill={color}
           style={{ transition: "r 0.15s ease", cursor: "pointer" }}
           onMouseEnter={() => hover(i)}
           onMouseLeave={() => hover(null)}

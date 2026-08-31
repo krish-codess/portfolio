@@ -15,7 +15,7 @@ export function About() {
   return (
     <section id="about" className="border-t border-border px-5 py-20 sm:px-8 sm:py-28">
       <Reveal>
-        <SectionLabel index="09" label="ABOUT" />
+        <SectionLabel index="07" label="ABOUT" />
       </Reveal>
 
       <div className="mt-10 grid grid-cols-1 gap-12 lg:grid-cols-12">

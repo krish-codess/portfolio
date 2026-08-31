@@ -26,11 +26,13 @@ export function StreamChart({
   xLabel,
   yLabel,
   onHover,
+  color = "var(--chart-point)",
 }: {
   data: XYPoint[];
   xLabel?: string;
   yLabel?: string;
   onHover?: (label: string | null) => void;
+  color?: string;
 }) {
   const [active, setActive] = useState<number | null>(null);
 
@@ -60,13 +62,13 @@ export function StreamChart({
 
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className="h-full w-full" preserveAspectRatio="xMidYMid meet" role="img" aria-label={`Stream plot of ${yLabel} over ${xLabel}`}>
-      <path d={echoLine} fill="none" stroke="var(--chart-annotation)" strokeWidth={1} opacity={0.25} />
-      <path d={area} fill="var(--chart-line)" opacity={0.09} />
+      <path d={echoLine} fill="none" stroke={color} strokeWidth={1} opacity={0.3} />
+      <path d={area} fill={color} opacity={0.14} />
       <motion.path
         d={line}
         fill="none"
-        stroke="var(--chart-line)"
-        strokeWidth={1.75}
+        stroke={color}
+        strokeWidth={2}
         initial={{ pathLength: 0 }}
         whileInView={{ pathLength: 1 }}
         viewport={{ once: true }}
@@ -78,7 +80,7 @@ export function StreamChart({
           cx={p.x}
           cy={p.y}
           r={active === i ? 5 : 0}
-          fill="var(--chart-annotation)"
+          fill={color}
           style={{ transition: "r 0.15s ease" }}
         />
       ))}

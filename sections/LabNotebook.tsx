@@ -14,7 +14,7 @@ export function LabNotebook() {
   return (
     <section id="lab" className="border-t border-border px-5 py-20 sm:px-8 sm:py-28">
       <Reveal>
-        <SectionLabel index="07" label="LAB NOTEBOOK" />
+        <SectionLabel index="05" label="LAB NOTEBOOK" />
         <h2 className="mt-6 font-display uppercase leading-[0.9] tracking-tight" style={{ fontSize: "clamp(2.2rem, 7vw, 4.5rem)" }}>
           FIELD NOTES
         </h2>

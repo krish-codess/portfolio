@@ -5,7 +5,8 @@ import { useActiveSection } from "@/lib/hooks/useActiveSection";
 import { GrainOverlay } from "@/components/chrome/GrainOverlay";
 import { CustomCursor } from "@/components/chrome/CustomCursor";
 import { SectionNav } from "@/components/chrome/SectionNav";
-import { ThemeSwitcher } from "@/components/chrome/ThemeSwitcher";
+import { AppearanceControls } from "@/components/chrome/AppearanceControls";
+import { SurpriseMe } from "@/components/SurpriseMe";
 import { EasterEgg } from "@/components/EasterEgg";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/sections/Hero";
@@ -13,8 +14,6 @@ import { ChooseYourFighter } from "@/sections/ChooseYourFighter";
 import { IdentityIntro } from "@/sections/IdentityIntro";
 import { Work } from "@/sections/Work";
 import { DataLab } from "@/sections/DataLab";
-import { Software } from "@/sections/Software";
-import { Design } from "@/sections/Design";
 import { Music } from "@/sections/Music";
 import { LabNotebook } from "@/sections/LabNotebook";
 import { Archive } from "@/sections/Archive";
@@ -31,7 +30,8 @@ export default function Home() {
       <GrainOverlay />
       <CustomCursor />
       <SectionNav activeId={activeId} />
-      <ThemeSwitcher />
+      <AppearanceControls />
+      <SurpriseMe />
       <EasterEgg />
 
       <main data-cursor="...">
@@ -40,8 +40,6 @@ export default function Home() {
         <IdentityIntro />
         <Work />
         <DataLab visitedCount={visitedCount} totalSections={SECTION_IDS.length} />
-        <Software />
-        <Design />
         <Music />
         <LabNotebook />
         <Archive />

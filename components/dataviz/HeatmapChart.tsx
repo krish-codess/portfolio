@@ -11,7 +11,15 @@ const PAD_TOP = 6;
 const PAD_BOTTOM = 6;
 const PAD_RIGHT = 6;
 
-export function HeatmapChart({ data, onHover }: { data: HeatmapData; onHover?: (label: string | null) => void }) {
+export function HeatmapChart({
+  data,
+  onHover,
+  color = "var(--chart-point)",
+}: {
+  data: HeatmapData;
+  onHover?: (label: string | null) => void;
+  color?: string;
+}) {
   const [active, setActive] = useState<{ r: number; c: number } | null>(null);
   const cols = data.cols.length;
   const rows = data.rows.length;
@@ -49,8 +57,8 @@ export function HeatmapChart({ data, onHover }: { data: HeatmapData; onHover?: (
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.3, delay: (cell.row * data.cols.length + cell.col) * 0.008 }}
-            fill={isActive ? "var(--chart-annotation)" : "var(--chart-point)"}
-            fillOpacity={isActive ? 1 : 0.15 + cell.value * 0.75}
+            fill={color}
+            fillOpacity={isActive ? 1 : 0.12 + cell.value * 0.8}
             style={{ cursor: "pointer", transition: "fill-opacity 0.15s ease" }}
             onMouseEnter={() => hover(cell.row, cell.col)}
             onMouseLeave={() => hover(null)}

@@ -6,7 +6,7 @@ export function Contact() {
   return (
     <section id="contact" className="border-t border-border px-5 py-24 sm:px-8 sm:py-32">
       <Reveal>
-        <SectionLabel index="10" label="CONTACT" />
+        <SectionLabel index="08" label="CONTACT" />
       </Reveal>
 
       <Reveal delay={0.05}>

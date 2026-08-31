@@ -31,11 +31,13 @@ export function RadialChart({
   data,
   yLabel,
   onHover,
+  palette = ["var(--chart-point)"],
 }: {
   data: CategoryPoint[];
   xLabel?: string;
   yLabel?: string;
   onHover?: (label: string | null) => void;
+  palette?: string[];
 }) {
   const [active, setActive] = useState<number | null>(null);
   const gap = 4;
@@ -64,12 +66,13 @@ export function RadialChart({
           <motion.path
             key={d.label}
             d={sectorPath(start, end, rOuter)}
-            fill={isActive ? "var(--chart-annotation)" : "var(--chart-point)"}
+            fill={palette[i % palette.length]}
+            fillOpacity={isActive ? 1 : 0.85}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: i * 0.05 }}
-            style={{ cursor: "pointer", transition: "fill 0.15s ease" }}
+            style={{ cursor: "pointer", transition: "fill-opacity 0.15s ease" }}
             onMouseEnter={() => hover(i)}
             onMouseLeave={() => hover(null)}
             onFocus={() => hover(i)}
