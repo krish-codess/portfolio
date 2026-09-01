@@ -52,7 +52,7 @@ export function RadialChart({
   }
 
   return (
-    <svg viewBox={`0 0 ${SIZE} ${SIZE}`} className="mx-auto block h-full max-h-full" preserveAspectRatio="xMidYMid meet" role="img" aria-label={`Radial chart of ${yLabel}`}>
+    <svg viewBox={`0 0 ${SIZE} ${SIZE}`} className="mx-auto block h-full w-full max-h-full max-w-full" preserveAspectRatio="xMidYMid meet" role="img" aria-label={`Radial chart of ${yLabel}`}>
       {[0.33, 0.66, 1].map((t) => (
         <circle key={t} cx={CENTER} cy={CENTER} r={R_INNER + t * (R_OUTER - R_INNER)} fill="none" stroke="var(--chart-grid)" strokeWidth={1} />
       ))}

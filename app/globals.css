@@ -133,6 +133,131 @@
   --chart-cat-6: #e0532b;
 }
 
+[data-color="violet"] {
+  --bg: #f4f0f7;
+  --bg-alt: #e6ddee;
+  --fg: #100a16;
+  --muted: #756a83;
+  --accent: #7c3aed;
+  --accent-fg: #f4f0f7;
+  --border: rgba(16, 10, 22, 0.16);
+  --border-strong: rgba(16, 10, 22, 0.88);
+  --chart-line: #100a16;
+  --chart-point: #7c3aed;
+  --chart-grid: rgba(16, 10, 22, 0.1);
+  --chart-axis: #756a83;
+  --chart-label: #100a16;
+  --chart-annotation: #7c3aed;
+  --chart-tooltip-bg: #100a16;
+  --chart-tooltip-fg: #f4f0f7;
+  --chart-cat-1: #7c3aed;
+  --chart-cat-2: #eb5c7a;
+  --chart-cat-3: #2f6fed;
+  --chart-cat-4: #14b8a6;
+  --chart-cat-5: #c9a227;
+  --chart-cat-6: #a78bfa;
+}
+
+[data-color="teal"] {
+  --bg: #edf5f4;
+  --bg-alt: #dcebe9;
+  --fg: #061412;
+  --muted: #5a7d78;
+  --accent: #0d9488;
+  --accent-fg: #edf5f4;
+  --border: rgba(6, 20, 18, 0.16);
+  --border-strong: rgba(6, 20, 18, 0.88);
+  --chart-line: #061412;
+  --chart-point: #0d9488;
+  --chart-grid: rgba(6, 20, 18, 0.1);
+  --chart-axis: #5a7d78;
+  --chart-label: #061412;
+  --chart-annotation: #0d9488;
+  --chart-tooltip-bg: #061412;
+  --chart-tooltip-fg: #edf5f4;
+  --chart-cat-1: #0d9488;
+  --chart-cat-2: #2f6fed;
+  --chart-cat-3: #6ab822;
+  --chart-cat-4: #c9a227;
+  --chart-cat-5: #8a4fdb;
+  --chart-cat-6: #5eead4;
+}
+
+[data-color="amber"] {
+  --bg: #f7f2e7;
+  --bg-alt: #ede2c8;
+  --fg: #191207;
+  --muted: #83734f;
+  --accent: #d99a10;
+  --accent-fg: #191207;
+  --border: rgba(25, 18, 7, 0.16);
+  --border-strong: rgba(25, 18, 7, 0.88);
+  --chart-line: #191207;
+  --chart-point: #d99a10;
+  --chart-grid: rgba(25, 18, 7, 0.1);
+  --chart-axis: #83734f;
+  --chart-label: #191207;
+  --chart-annotation: #d99a10;
+  --chart-tooltip-bg: #191207;
+  --chart-tooltip-fg: #f7f2e7;
+  --chart-cat-1: #d99a10;
+  --chart-cat-2: #c9432c;
+  --chart-cat-3: #6ab822;
+  --chart-cat-4: #2f6fed;
+  --chart-cat-5: #8a4fdb;
+  --chart-cat-6: #e0468e;
+}
+
+[data-color="rose"] {
+  --bg: #f8eff2;
+  --bg-alt: #f0dee5;
+  --fg: #170a0e;
+  --muted: #82656e;
+  --accent: #e0468e;
+  --accent-fg: #f8eff2;
+  --border: rgba(23, 10, 14, 0.16);
+  --border-strong: rgba(23, 10, 14, 0.88);
+  --chart-line: #170a0e;
+  --chart-point: #e0468e;
+  --chart-grid: rgba(23, 10, 14, 0.1);
+  --chart-axis: #82656e;
+  --chart-label: #170a0e;
+  --chart-annotation: #e0468e;
+  --chart-tooltip-bg: #170a0e;
+  --chart-tooltip-fg: #f8eff2;
+  --chart-cat-1: #e0468e;
+  --chart-cat-2: #7c3aed;
+  --chart-cat-3: #2f6fed;
+  --chart-cat-4: #d99a10;
+  --chart-cat-5: #1f9e6b;
+  --chart-cat-6: #eb5c7a;
+}
+
+[data-color="forest"] {
+  --bg: #eef3ec;
+  --bg-alt: #dde8d9;
+  --fg: #0a130a;
+  --muted: #5f7458;
+  --accent: #1f7a3d;
+  --accent-fg: #eef3ec;
+  --border: rgba(10, 19, 10, 0.16);
+  --border-strong: rgba(10, 19, 10, 0.88);
+  --chart-line: #0a130a;
+  --chart-point: #1f7a3d;
+  --chart-grid: rgba(10, 19, 10, 0.1);
+  --chart-axis: #5f7458;
+  --chart-label: #0a130a;
+  --chart-annotation: #1f7a3d;
+  --chart-tooltip-bg: #0a130a;
+  --chart-tooltip-fg: #eef3ec;
+  --chart-cat-1: #1f7a3d;
+  --chart-cat-2: #c9a227;
+  --chart-cat-3: #2f6fed;
+  --chart-cat-4: #8a4fdb;
+  --chart-cat-5: #d6376b;
+  --chart-cat-6: #6ab822;
+}
+
 /* ============================================================
    DESIGN MODES — [data-mode]
    Mostly structure -- type, density, borders, radius, grain, motion
@@ -278,6 +403,112 @@
   --accent-fg: #0d0d0d;
   --chart-point: #e9e9e3;
   --chart-annotation: #e9e9e3;
+}
+
+/* ============================================================
+   MODE SHELL — layout skeleton
+   This is the part that makes each mode read as a different site, not just a different
+   palette: where the nav lives, how wide the content column runs, and how dense the Data
+   Lab grid packs. Editorial and Paper are the baseline shell (untouched, unstyled here) --
+   Paper stays completely excluded per the standing "don't touch paper" rule, and Editorial
+   is simply what the site looked like before this pass. Terminal, Digital, and Nocturne each
+   get a genuinely different skeleton.
+   ============================================================ */
+
+/* TERMINAL: nav becomes a full-width top bar (dashboard-style), content runs edge-to-edge
+   with tight gutters, and the Data Lab grid packs into more, smaller columns. */
+[data-mode="terminal"] nav[data-role="section-nav"] {
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: auto;
+  translate: none;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border-width: 0 0 1px 0;
+}
+[data-mode="terminal"] nav[data-role="section-nav"] #desktop-nav-list {
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
+}
+[data-mode="terminal"] nav[data-role="section-nav"] #desktop-nav-list > div:last-child {
+  margin-top: 0;
+  margin-left: 0.5rem;
+}
+[data-mode="terminal"] #intro {
+  padding-top: 3.5rem;
+}
+[data-mode="terminal"] main > section:not(#intro) {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+[data-mode="terminal"] [data-shell="gallery"] {
+  gap: 0.5rem;
+}
+@media (min-width: 1024px) {
+  [data-mode="terminal"] [data-shell="gallery"] {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+/* DIGITAL: nav becomes a floating bottom-center dock, and the whole content column narrows
+   into a single centered feed -- an app shell instead of an edge-to-edge magazine grid. */
+[data-mode="digital"] nav[data-role="section-nav"] {
+  top: auto;
+  bottom: 1.75rem;
+  right: auto;
+  left: 50%;
+  translate: -50% 0;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+  box-shadow: 0 8px 30px rgba(10, 10, 20, 0.12);
+}
+[data-mode="digital"] nav[data-role="section-nav"] #desktop-nav-list {
+  flex-direction: row;
+  align-items: center;
+  gap: 1.25rem;
+}
+[data-mode="digital"] nav[data-role="section-nav"] #desktop-nav-list > div:last-child {
+  margin-top: 0;
+  margin-left: 0.5rem;
+}
+[data-mode="digital"] #intro,
+[data-mode="digital"] main > section:not(#intro) {
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+[data-mode="digital"] [data-shell="gallery"] {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* NOCTURNE: nav mirrors to the left edge, and content shifts into a wide asymmetric column
+   with a deep inside margin -- an atmospheric, off-center reading column instead of a
+   symmetric one. */
+[data-mode="nocturne"] nav[data-role="section-nav"] {
+  right: auto;
+  left: 1.5rem;
+}
+[data-mode="nocturne"] #intro,
+[data-mode="nocturne"] main > section:not(#intro) {
+  margin-left: clamp(1rem, 4vw, 3rem);
+  margin-right: clamp(1rem, 3vw, 3rem);
+}
+/* The nav rail only appears at lg+ (see SectionNav), so the wider clearance -- wide enough
+   to clear the rail's own width -- only needs to apply there too. */
+@media (min-width: 1024px) {
+  [data-mode="nocturne"] #intro,
+  [data-mode="nocturne"] main > section:not(#intro) {
+    margin-left: clamp(11rem, 9vw, 13rem);
+  }
+}
+[data-mode="nocturne"] [data-shell="gallery"] {
+  gap: 1rem;
 }
 
 @theme inline {

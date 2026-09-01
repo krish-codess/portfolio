@@ -1,4 +1,4 @@
-export type ColorSchemeId = "warm" | "mono" | "red" | "blue" | "acid";
+export type ColorSchemeId = "warm" | "mono" | "red" | "blue" | "acid" | "violet" | "teal" | "amber" | "rose" | "forest";
 
 export interface ColorSchemeMeta {
   id: ColorSchemeId;
@@ -17,6 +17,11 @@ export const COLOR_SCHEMES: ColorSchemeMeta[] = [
   { id: "red", index: "03", name: "RED", descriptor: "Black / warm white / red", swatch: "#c81e3a" },
   { id: "blue", index: "04", name: "BLUE", descriptor: "Black / cool white / blue", swatch: "#2f6fed" },
   { id: "acid", index: "05", name: "ACID", descriptor: "Black / off-white / acid green", swatch: "#7cd12b" },
+  { id: "violet", index: "06", name: "VIOLET", descriptor: "Black / lavender white / violet", swatch: "#7c3aed" },
+  { id: "teal", index: "07", name: "TEAL", descriptor: "Black / cool white / teal", swatch: "#0d9488" },
+  { id: "amber", index: "08", name: "AMBER", descriptor: "Black / cream / amber gold", swatch: "#d99a10" },
+  { id: "rose", index: "09", name: "ROSE", descriptor: "Black / warm white / rose pink", swatch: "#e0468e" },
+  { id: "forest", index: "10", name: "FOREST", descriptor: "Black / off-white / forest green", swatch: "#1f7a3d" },
 ];
 
 export const DEFAULT_COLOR: ColorSchemeId = "warm";

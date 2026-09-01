@@ -61,6 +61,7 @@ export function SectionNav({ activeId }: { activeId: string }) {
       {/* Desktop: fixed right-side rail, collapsible down to a small index tab */}
       <nav
         aria-label="Section navigation"
+        data-role="section-nav"
         className={cx(
           "fixed right-6 top-1/2 z-30 hidden -translate-y-1/2 flex-col border border-border bg-background lg:flex",
           collapsed ? "items-center gap-2 px-2.5 py-3" : "items-end gap-3 px-4 py-5"

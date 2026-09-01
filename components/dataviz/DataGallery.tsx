@@ -15,7 +15,7 @@ export function DataGallery({ figures }: { figures: DataFigure[] }) {
 
   return (
     <>
-      <div className="grid grid-flow-row-dense grid-cols-2 gap-2.5 sm:grid-cols-4 sm:gap-3">
+      <div data-shell="gallery" className="grid grid-flow-row-dense grid-cols-2 gap-2.5 sm:grid-cols-4 sm:gap-3">
         {figures.map((figure, i) => (
           <DataCard key={figure.id} figure={figure} index={i} onExpand={() => setExpandedId(figure.id)} />
         ))}
