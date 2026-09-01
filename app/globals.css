@@ -48,12 +48,14 @@
   --chart-annotation: #0d0d0d;
   --chart-tooltip-bg: #0d0d0d;
   --chart-tooltip-fg: #f3f3f1;
-  --chart-cat-1: #0d0d0d;
-  --chart-cat-2: #3a3a37;
-  --chart-cat-3: #626260;
-  --chart-cat-4: #8a8a87;
-  --chart-cat-5: #b0b0ac;
-  --chart-cat-6: #cfcfca;
+  /* Kept mid-weighted (not pure black-to-white) so this ramp still reads on both a light
+     surface (editorial/digital/paper) and a dark one (terminal/nocturne). */
+  --chart-cat-1: #2b2b28;
+  --chart-cat-2: #45453f;
+  --chart-cat-3: #63635c;
+  --chart-cat-4: #85857c;
+  --chart-cat-5: #a8a89e;
+  --chart-cat-6: #c7c7ba;
 }
 
 [data-color="red"] {
@@ -133,8 +135,15 @@
 
 /* ============================================================
    DESIGN MODES — [data-mode]
-   Structure only: type, tracking, radius, grain, motion. Never
-   touches color; that's the Color scheme's job.
+   Mostly structure -- type, density, borders, radius, grain, motion
+   -- but terminal and nocturne ALSO force a dark surface (bg/fg/
+   muted/border/chart-neutrals), independent of whichever accent hue
+   the Color scheme supplies. Because these overrides live in a
+   [data-mode] block declared after every [data-color] block, they
+   win the cascade for the properties they touch (bg/fg/etc.) while
+   --accent and the categorical chart-cat-* colors are left alone --
+   so the accent you picked still reads through on a dark surface.
+   Paper (03) is intentionally untouched by any of this.
    ============================================================ */
 :root,
 [data-mode="editorial"] {
@@ -149,8 +158,20 @@
   --font-display: var(--font-mono);
   --tracking-display: -0.01em;
   --radius: 0px;
-  --grain-opacity: 0.09;
-  --motion-scale: 0.8;
+  --grain-opacity: 0.07;
+  --motion-scale: 0.75;
+  --section-py: 2.75rem;
+  --bg: #06090a;
+  --bg-alt: #0d1113;
+  --fg: #d8ece1;
+  --muted: #5c7268;
+  --border: rgba(216, 236, 225, 0.22);
+  --border-strong: rgba(216, 236, 225, 0.9);
+  --chart-grid: rgba(216, 236, 225, 0.1);
+  --chart-axis: #5c7268;
+  --chart-label: #d8ece1;
+  --chart-tooltip-bg: #d8ece1;
+  --chart-tooltip-fg: #06090a;
 }
 
 [data-mode="paper"] {
@@ -164,17 +185,99 @@
 [data-mode="digital"] {
   --font-display: var(--font-grotesk);
   --tracking-display: -0.015em;
-  --radius: 4px;
-  --grain-opacity: 0.015;
+  --radius: 14px;
+  --grain-opacity: 0.012;
   --motion-scale: 1.1;
+  --section-py: 4.5rem;
 }
 
 [data-mode="nocturne"] {
   --font-display: var(--font-grotesk);
   --tracking-display: -0.02em;
   --radius: 10px;
-  --grain-opacity: 0.12;
+  --grain-opacity: 0.13;
   --motion-scale: 1.3;
+  --section-py: 8rem;
+  --bg: #0d0c15;
+  --bg-alt: #17152a;
+  --fg: #eae7f6;
+  --muted: #8b84a8;
+  --border: rgba(234, 231, 246, 0.14);
+  --border-strong: rgba(234, 231, 246, 0.85);
+  --chart-grid: rgba(234, 231, 246, 0.09);
+  --chart-axis: #8b84a8;
+  --chart-label: #eae7f6;
+  --chart-tooltip-bg: #eae7f6;
+  --chart-tooltip-fg: #0d0c15;
+}
+
+/* -- Structural personality per mode, applied broadly via plain CSS so the whole site
+   shifts without touching every component. Paper (03) is excluded from all of these. -- */
+
+/* Terminal: every border goes dashed, sections compress, and a faint CRT scanline sits
+   over everything. */
+[data-mode="terminal"] *:not(.grain-layer) {
+  border-style: dashed;
+}
+[data-mode="terminal"] section {
+  padding-top: var(--section-py);
+  padding-bottom: var(--section-py);
+}
+[data-mode="terminal"] body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 39;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(216, 236, 225, 0.09) 0px,
+    rgba(216, 236, 225, 0.09) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+/* Digital: soft elevation on every bordered surface, tighter section rhythm. */
+[data-mode="digital"] .border,
+[data-mode="digital"] .border-border,
+[data-mode="digital"] .border-t,
+[data-mode="digital"] .border-b {
+  box-shadow: 0 1px 2px rgba(10, 10, 20, 0.05), 0 6px 16px rgba(10, 10, 20, 0.06);
+}
+[data-mode="digital"] section {
+  padding-top: var(--section-py);
+  padding-bottom: var(--section-py);
+}
+
+/* Nocturne: generous section rhythm and a soft accent-colored glow behind display type. */
+[data-mode="nocturne"] section {
+  padding-top: var(--section-py);
+  padding-bottom: var(--section-py);
+}
+[data-mode="nocturne"] h1,
+[data-mode="nocturne"] h2 {
+  text-shadow: 0 0 46px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-mode="terminal"] body::before {
+    display: none;
+  }
+}
+
+/* Mono's accent is defined as near-black -- correct against its own light surface, but
+   invisible once terminal/nocturne force a dark one. Only this specific combination needs
+   correcting; every other color reads fine on a dark surface already (they're all bright,
+   saturated hues to begin with). Acid is untouched -- it isn't part of this rule. */
+[data-mode="terminal"][data-color="mono"],
+[data-mode="nocturne"][data-color="mono"] {
+  --accent: #e9e9e3;
+  --accent-fg: #0d0d0d;
+  --chart-point: #e9e9e3;
+  --chart-annotation: #e9e9e3;
 }
 
 @theme inline {

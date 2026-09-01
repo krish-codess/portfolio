@@ -115,21 +115,28 @@ export function HeroTypography() {
           {/* Every word is always mounted and cross-fades via opacity -- no mount/unmount
               cycle, which sidesteps a layout-corrupting interaction we found between
               AnimatePresence exit animations and this element's transform. */}
-          {WORDS.slice(1).map((w) => (
-            <span
-              key={w.word}
-              aria-hidden="true"
-              className="absolute inset-0 bg-background text-accent"
-              style={{
-                opacity: current.word === w.word ? 1 : 0,
-                transform: current.word === w.word ? "translateY(0)" : "translateY(-10px)",
-                transition: "opacity 0.35s ease, transform 0.35s ease",
-                pointerEvents: "none",
-              }}
-            >
-              {w.word}
-            </span>
-          ))}
+          {/* Centered independently of the button's own width (which is sized to "GOHEL",
+              the only normal-flow content) via left-1/2 + translateX(-50%) -- inset-0 here
+              would tie each overlay's box to GOHEL's width, so a longer word like "ANALYZE"
+              wasn't reliably centering within it. */}
+          {WORDS.slice(1).map((w) => {
+            const isActive = current.word === w.word;
+            return (
+              <span
+                key={w.word}
+                aria-hidden="true"
+                className="absolute left-1/2 top-0 bg-background text-accent"
+                style={{
+                  opacity: isActive ? 1 : 0,
+                  transform: `translateX(-50%) translateY(${isActive ? 0 : -10}px)`,
+                  transition: "opacity 0.35s ease, transform 0.35s ease",
+                  pointerEvents: "none",
+                }}
+              >
+                {w.word}
+              </span>
+            );
+          })}
         </button>
       </div>
     </div>

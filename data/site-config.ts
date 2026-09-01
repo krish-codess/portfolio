@@ -6,10 +6,11 @@ export const SITE = {
   metaDescription:
     "Krish Gohel — a full-stack data specialist, software developer, designer, and musician. An experimental, interactive personal archive.",
   email: "krishnakulgohel544@gmail.com",
-  location: "PLACEHOLDER — CITY, COUNTRY",
+  location: "CHENNAI, INDIA",
   discipline: "DATA / SOFTWARE / DESIGN / MUSIC",
-  currently: "PLACEHOLDER — CURRENTLY BUILDING SOMETHING",
-  interests: "PLACEHOLDER — ADD INTERESTS",
+  currently: "B.TECH CSE + DATA SCIENCE MINOR, SRM IST",
+  interests: "DRUMS, DATA VISUALIZATION, PRODUCT DESIGN",
+  resumeUrl: "/resume.pdf",
   aboutParagraphs: [
     "I like building things.",
     "Sometimes they're software. Sometimes they're visual. Sometimes they're data. Sometimes they're music.",
@@ -18,6 +19,7 @@ export const SITE = {
 } as const;
 
 export const SOCIALS = [
+  { label: "RESUME", href: SITE.resumeUrl },
   { label: "EMAIL", href: `mailto:${SITE.email}` },
   { label: "GITHUB", href: "#" },
   { label: "LINKEDIN", href: "#" },

@@ -7,15 +7,15 @@ export interface DesignModeMeta {
   descriptor: string;
 }
 
-// DESIGN MODE changes the design language -- typography, tracking, radius, grain, motion,
-// and structural treatment. It never touches color; that's the Color scheme's job. See
-// app/globals.css for the actual variable values per [data-mode].
+// DESIGN MODE changes the design language -- typography, density, borders, radius, grain,
+// motion, and (for terminal/nocturne only) the surface itself goes dark, independent of
+// whatever accent hue the Color scheme supplies. See app/globals.css for [data-mode].
 export const DESIGN_MODES: DesignModeMeta[] = [
-  { id: "editorial", index: "01", name: "EDITORIAL", descriptor: "Warm structure, hard type, thin borders" },
-  { id: "terminal", index: "02", name: "TERMINAL", descriptor: "Monospace-heavy, technical annotations" },
+  { id: "editorial", index: "01", name: "EDITORIAL", descriptor: "Warm paper, hard type, thin borders" },
+  { id: "terminal", index: "02", name: "TERMINAL", descriptor: "Dark, dense, monospace, dashed rules, scanlines" },
   { id: "paper", index: "03", name: "PAPER", descriptor: "Newspaper structure, denser rules" },
-  { id: "digital", index: "04", name: "DIGITAL", descriptor: "Clean, sharp, interface-oriented" },
-  { id: "nocturne", index: "05", name: "NOCTURNE", descriptor: "Slower, spacious, atmospheric" },
+  { id: "digital", index: "04", name: "DIGITAL", descriptor: "Clean, rounded, soft shadows, compact" },
+  { id: "nocturne", index: "05", name: "NOCTURNE", descriptor: "Dark, spacious, atmospheric glow" },
 ];
 
 export const DEFAULT_MODE: DesignModeId = "editorial";

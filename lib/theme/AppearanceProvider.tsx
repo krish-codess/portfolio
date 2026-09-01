@@ -16,11 +16,22 @@ const AppearanceContext = createContext<AppearanceContextValue | null>(null);
 // Two independent attributes on <html>, set before hydration so there's no flash. They are
 // deliberately separate DOM attributes (not one combined value) so the two axes can never
 // accidentally become coupled.
+//
+// Mode has one extra rule: until a visitor explicitly picks one (which persists from then
+// on), the STARTING mode each visit is chosen from local time of day -- morning/midday get
+// a light mode, evening/night get a dark one. Picking a mode by hand always wins after that.
 export const APPEARANCE_INIT_SCRIPT = `
 (function () {
   try {
     var color = localStorage.getItem("${COLOR_STORAGE_KEY}") || "${DEFAULT_COLOR}";
-    var mode = localStorage.getItem("${MODE_STORAGE_KEY}") || "${DEFAULT_MODE}";
+    var mode = localStorage.getItem("${MODE_STORAGE_KEY}");
+    if (!mode) {
+      var h = new Date().getHours();
+      if (h >= 5 && h < 11) mode = "editorial";
+      else if (h >= 11 && h < 17) mode = "digital";
+      else if (h >= 17 && h < 21) mode = "terminal";
+      else mode = "nocturne";
+    }
     document.documentElement.setAttribute("data-color", color);
     document.documentElement.setAttribute("data-mode", mode);
   } catch (e) {
