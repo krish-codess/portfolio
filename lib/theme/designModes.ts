@@ -11,11 +11,11 @@ export interface DesignModeMeta {
 // motion, and (for terminal/nocturne only) the surface itself goes dark, independent of
 // whatever accent hue the Color scheme supplies. See app/globals.css for [data-mode].
 export const DESIGN_MODES: DesignModeMeta[] = [
-  { id: "editorial", index: "01", name: "EDITORIAL", descriptor: "Warm paper, hard type, thin borders" },
-  { id: "terminal", index: "02", name: "TERMINAL", descriptor: "Dark, dense, monospace, dashed rules, scanlines" },
+  { id: "editorial", index: "01", name: "EDITORIAL", descriptor: "Warm paper, grotesk, thin borders" },
+  { id: "terminal", index: "02", name: "TERMINAL", descriptor: "Dark dashboard, monospace, dashed rules, scanlines" },
   { id: "paper", index: "03", name: "PAPER", descriptor: "Newspaper structure, denser rules" },
-  { id: "digital", index: "04", name: "DIGITAL", descriptor: "Clean, rounded, soft shadows, compact" },
-  { id: "nocturne", index: "05", name: "NOCTURNE", descriptor: "Dark, spacious, atmospheric glow" },
+  { id: "digital", index: "04", name: "DIGITAL", descriptor: "App shell, rounded sans, lowercase, soft cards" },
+  { id: "nocturne", index: "05", name: "NOCTURNE", descriptor: "Dark magazine, display serif, atmospheric glow" },
 ];
 
 export const DEFAULT_MODE: DesignModeId = "editorial";

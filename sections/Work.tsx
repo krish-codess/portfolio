@@ -18,7 +18,7 @@ export function Work() {
         <SectionLabel index="02" label="SELECTED WORK" />
       </Reveal>
 
-      <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-8">
+      <div data-shell="split" className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-8">
         <div className="lg:col-span-7">
           {PROJECTS.map((project) => (
             <div key={project.slug}>

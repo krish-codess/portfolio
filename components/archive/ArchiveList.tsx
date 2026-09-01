@@ -49,7 +49,7 @@ export function ArchiveList() {
               <span className="font-display text-2xl tracking-tight">{year}</span>
               <span className="h-px flex-1 bg-border" />
             </div>
-            <ul className="mt-3 border-t border-border">
+            <ul data-shell="rows" className="mt-3 border-t border-border">
               {items.map((item) => (
                 <motion.li
                   key={item.id}

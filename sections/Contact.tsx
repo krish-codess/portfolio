@@ -23,7 +23,7 @@ export function Contact() {
       </Reveal>
 
       <Reveal delay={0.15}>
-        <ul className="mt-14 flex flex-col divide-y divide-border border-y border-border">
+        <ul data-shell="rows" className="mt-14 flex flex-col divide-y divide-border border-y border-border">
           {SOCIALS.map((social) => (
             <li key={social.label}>
               <a

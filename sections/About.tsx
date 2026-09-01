@@ -18,7 +18,7 @@ export function About() {
         <SectionLabel index="07" label="ABOUT" />
       </Reveal>
 
-      <div className="mt-10 grid grid-cols-1 gap-12 lg:grid-cols-12">
+      <div data-shell="split" className="mt-10 grid grid-cols-1 gap-12 lg:grid-cols-12">
         <div className="lg:col-span-7">
           <Reveal>
             <div className="space-y-5 font-display uppercase leading-tight tracking-tight" style={{ fontSize: "clamp(1.6rem, 4vw, 2.6rem)" }}>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, IBM_Plex_Mono } from "next/font/google";
+import { Space_Grotesk, IBM_Plex_Mono, Manrope, Fraunces } from "next/font/google";
 import "./globals.css";
 import { AppearanceProvider, APPEARANCE_INIT_SCRIPT } from "@/lib/theme/AppearanceProvider";
 import { FocusProvider } from "@/lib/focus/FocusContext";
@@ -18,6 +18,25 @@ const plexMono = IBM_Plex_Mono({
   variable: "--font-mono",
   display: "swap",
   weight: ["400", "500", "600"],
+});
+
+// DIGITAL's typeface -- a rounded, friendly geometric sans, standing in deliberate contrast
+// to Editorial/Terminal's grotesk and mono.
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-manrope",
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
+});
+
+// NOCTURNE's typeface -- an atmospheric display serif, for the one mode that should read as
+// a moody magazine rather than a software product.
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-fraunces",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -41,11 +60,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${grotesk.variable} ${plexMono.variable} ${manrope.variable} ${fraunces.variable}`}
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: APPEARANCE_INIT_SCRIPT }} />
       </head>
-      <body className={`${grotesk.variable} ${plexMono.variable} antialiased`}>
+      <body className="antialiased">
         <AppearanceProvider>
           <FocusProvider>
             <RhythmReactivityProvider>

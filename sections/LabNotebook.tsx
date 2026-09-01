@@ -26,7 +26,7 @@ export function LabNotebook() {
 
       {/* Kept clear of the far-right edge on purpose -- the fixed section nav is
           vertically centered and would otherwise sit on top of a right-aligned column. */}
-      <div className="mt-10 max-w-3xl border-t border-border">
+      <div data-shell="rows" className="mt-10 max-w-3xl border-t border-border">
         {LAB_ENTRIES.map((entry, i) => (
           <Reveal key={entry.id} delay={Math.min(i * 0.04, 0.2)}>
             <article className="grid grid-cols-1 gap-3 border-b border-border py-6 font-meta sm:grid-cols-10 sm:gap-6">

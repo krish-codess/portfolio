@@ -308,8 +308,8 @@
 }
 
 [data-mode="digital"] {
-  --font-display: var(--font-grotesk);
-  --tracking-display: -0.015em;
+  --font-display: var(--font-manrope);
+  --tracking-display: -0.005em;
   --radius: 14px;
   --grain-opacity: 0.012;
   --motion-scale: 1.1;
@@ -317,8 +317,8 @@
 }
 
 [data-mode="nocturne"] {
-  --font-display: var(--font-grotesk);
-  --tracking-display: -0.02em;
+  --font-display: var(--font-fraunces);
+  --tracking-display: 0.005em;
   --radius: 10px;
   --grain-opacity: 0.13;
   --motion-scale: 1.3;
@@ -509,6 +509,52 @@
 }
 [data-mode="nocturne"] [data-shell="gallery"] {
   gap: 1rem;
+}
+
+/* ------------------------------------------------------------
+   Typography personality: each mode's --font-display is already wired above (grotesk /
+   mono / grotesk / manrope / fraunces); this is the second half -- how that type is CASED
+   and how the two-column sections and row-lists are actually built out of it. Digital reads
+   as lowercase app copy on soft rounded cards; Nocturne keeps display case but leans on the
+   serif's own character; Terminal/Editorial/Paper are untouched (still full-caps grotesk or
+   mono, as authored).
+   ------------------------------------------------------------ */
+[data-mode="digital"] main .font-display {
+  text-transform: lowercase;
+}
+
+/* DIGITAL: the two-column splits (About/Work/Music) stop being a 12-col grid and become a
+   single stacked feed, matching the narrowed app-shell canvas instead of squeezing a wide
+   grid into it. Row-lists (Archive/Contact/Lab Notebook) drop their dividing lines in favor
+   of individually bordered, rounded, shadowed cards. */
+[data-mode="digital"] [data-shell="split"] {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+[data-mode="digital"] [data-shell="rows"] {
+  border-top: none;
+  border-bottom: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+[data-mode="digital"] [data-shell="rows"] > li,
+[data-mode="digital"] [data-shell="rows"] article {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.85rem 1.1rem;
+  box-shadow: 0 1px 2px rgba(10, 10, 20, 0.05), 0 6px 16px rgba(10, 10, 20, 0.06);
+}
+
+/* NOCTURNE: row-lists lose their hard borders in favor of a soft accent-tinted hairline, in
+   keeping with the atmospheric, borderless-feeling magazine layout. */
+[data-mode="nocturne"] [data-shell="rows"] > li,
+[data-mode="nocturne"] [data-shell="rows"] article {
+  border-bottom-color: color-mix(in srgb, var(--accent) 28%, transparent);
+}
+[data-mode="nocturne"] [data-shell="rows"] {
+  border-top-color: color-mix(in srgb, var(--accent) 28%, transparent);
 }
 
 @theme inline {
