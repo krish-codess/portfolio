@@ -1,4 +1,4 @@
-export type DesignModeId = "editorial" | "terminal" | "paper" | "digital" | "nocturne";
+export type DesignModeId = "editorial" | "swiss" | "terminal" | "archive" | "kinetic";
 
 export interface DesignModeMeta {
   id: DesignModeId;
@@ -7,15 +7,16 @@ export interface DesignModeMeta {
   descriptor: string;
 }
 
-// DESIGN MODE changes the design language -- typography, density, borders, radius, grain,
-// motion, and (for terminal/nocturne only) the surface itself goes dark, independent of
-// whatever accent hue the Color scheme supplies. See app/globals.css for [data-mode].
+// DESIGN MODE is not a palette swap -- it is which of five art-directors built this site.
+// Content (data/*.ts) never changes between modes; everything about how it's PRESENTED does:
+// typeface, case, grid, density, nav placement, card grammar, hero, and the mode switcher's
+// own shape. See app/globals.css for [data-mode] and the per-mode Hero/*.tsx components.
 export const DESIGN_MODES: DesignModeMeta[] = [
-  { id: "editorial", index: "01", name: "EDITORIAL", descriptor: "Warm paper, grotesk, thin borders" },
-  { id: "terminal", index: "02", name: "TERMINAL", descriptor: "Dark dashboard, monospace, dashed rules, scanlines" },
-  { id: "paper", index: "03", name: "PAPER", descriptor: "Newspaper structure, denser rules" },
-  { id: "digital", index: "04", name: "DIGITAL", descriptor: "App shell, rounded sans, lowercase, soft cards" },
-  { id: "nocturne", index: "05", name: "NOCTURNE", descriptor: "Dark magazine, display serif, atmospheric glow" },
+  { id: "editorial", index: "01", name: "EDITORIAL", descriptor: "Brutalist magazine — Anton display, near-black, red" },
+  { id: "swiss", index: "02", name: "SWISS", descriptor: "International Typographic Style — strict grid, neutral grotesk" },
+  { id: "terminal", index: "03", name: "TERMINAL", descriptor: "Computational console — monospace, dark, command-driven" },
+  { id: "archive", index: "04", name: "ARCHIVE", descriptor: "Research notebook — serif, warm paper, marginalia" },
+  { id: "kinetic", index: "05", name: "KINETIC", descriptor: "Digital experiment — spatial, motion-led, generative" },
 ];
 
 export const DEFAULT_MODE: DesignModeId = "editorial";

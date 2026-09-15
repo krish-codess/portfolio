@@ -1,3 +1,16 @@
+// Shared across every Hero/*.tsx variant -- one identity, five presentations. Never
+// duplicate this into a mode-specific copy; add a field here if a mode needs one more.
+export const IDENTITY = {
+  first: "KRISH",
+  last: "GOHEL",
+  full: "KRISH GOHEL",
+  tagline: "FULL-STACK DATA SPECIALIST",
+  roles: ["SOFTWARE", "DATA", "DESIGN", "DRUMS"],
+  cycle: ["KRISH", "DATA", "CODE", "DESIGN", "DRUMS"],
+  year: "2026",
+  country: "INDIA",
+} as const;
+
 export const SITE = {
   name: "Krish Gohel",
   shortName: "KG",

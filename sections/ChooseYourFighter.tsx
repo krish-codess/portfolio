@@ -11,10 +11,10 @@ import { cx } from "@/lib/utils";
 // Choosing a fighter shifts the DESIGN MODE (not color) -- a real, visible change in the
 // site's structural language, while leaving whatever color scheme the visitor already has.
 const FOCUS_MODE: Record<FocusId, DesignModeId> = {
-  data: "digital",
+  data: "swiss",
   code: "terminal",
   design: "editorial",
-  music: "nocturne",
+  music: "kinetic",
 };
 
 const OPTIONS: FocusId[] = ["data", "code", "design", "music"];

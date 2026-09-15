@@ -6,8 +6,20 @@ import { DATA_FIGURES } from "@/data/data-figures";
 import { PLAYLISTS } from "@/data/playlists";
 import { ChartRenderer } from "@/components/dataviz/ChartRenderer";
 import { Meta } from "@/components/typography/Meta";
+import { useAppearance } from "@/lib/theme/AppearanceProvider";
+import { DesignModeId } from "@/lib/theme/designModes";
 
 type Result = { kind: "data"; index: number } | { kind: "music"; index: number };
+
+// The control is the same feature everywhere (random data figure OR a real playlist -- never
+// an invented song) -- only the label changes to match the active mode's own vocabulary.
+const RANDOM_LABEL: Record<DesignModeId, string> = {
+  editorial: "RANDOM ↗",
+  swiss: "RANDOM / 01",
+  terminal: "$ random",
+  archive: "RANDOM ENTRY",
+  kinetic: "⟳ RANDOM",
+};
 
 function scrollToData() {
   document.getElementById("data")?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -21,6 +33,7 @@ function scrollToMusic() {
 // artifact or a random playlist recommendation. Both outcomes render with whatever
 // color/design mode is currently active, so the result always belongs to the site.
 export function SurpriseMe() {
+  const { designMode } = useAppearance();
   const [result, setResult] = useState<Result | null>(null);
   const [open, setOpen] = useState(false);
 
@@ -94,8 +107,7 @@ export function SurpriseMe() {
         data-cursor="ROLL"
         className="flex items-center gap-2 rounded-[var(--radius)] border border-border bg-background/85 px-3 py-2 font-meta text-[10px] uppercase tracking-widest backdrop-blur transition-colors hover:border-accent hover:text-accent"
       >
-        <span>SURPRISE ME</span>
-        <span aria-hidden="true">↻</span>
+        <span>{RANDOM_LABEL[designMode]}</span>
       </button>
     </div>
   );

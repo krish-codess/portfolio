@@ -7,7 +7,6 @@ export function Music() {
   return (
     <section
       id="music"
-      data-mode="nocturne"
       className="border-t border-border bg-background px-5 py-20 text-foreground transition-colors duration-500 sm:px-8 sm:py-28"
     >
       <Reveal>

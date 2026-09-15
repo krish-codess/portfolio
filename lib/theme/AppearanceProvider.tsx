@@ -28,9 +28,9 @@ export const APPEARANCE_INIT_SCRIPT = `
     if (!mode) {
       var h = new Date().getHours();
       if (h >= 5 && h < 11) mode = "editorial";
-      else if (h >= 11 && h < 17) mode = "digital";
+      else if (h >= 11 && h < 17) mode = "swiss";
       else if (h >= 17 && h < 21) mode = "terminal";
-      else mode = "nocturne";
+      else mode = "kinetic";
     }
     document.documentElement.setAttribute("data-color", color);
     document.documentElement.setAttribute("data-mode", mode);

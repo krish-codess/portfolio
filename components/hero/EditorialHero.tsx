@@ -4,23 +4,18 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { usePrefersReducedMotion } from "@/lib/hooks/useMediaQuery";
 import { clamp } from "@/lib/utils";
+import { IDENTITY } from "@/data/site-config";
 
-interface WordState {
-  word: string;
-  caption: string;
-  tone: "fg" | "accent";
-}
-
-// KRISH anchors identity (off-white); everything else is a discipline, stamped in the
-// hero's fixed red. DRUMS is deliberately captioned "not production" -- see AGENTS-level
-// instruction: plays drums and listens widely, does not produce/compose/sing.
-const WORDS: WordState[] = [
-  { word: "KRISH", caption: "FULL-STACK DATA SPECIALIST", tone: "fg" },
-  { word: "DATA", caption: "PATTERNS, PIPELINES, ANALYSIS", tone: "accent" },
-  { word: "CODE", caption: "SYSTEMS THAT RUN", tone: "accent" },
-  { word: "DESIGN", caption: "FORM WITH INTENT", tone: "accent" },
-  { word: "DRUMS", caption: "RHYTHM — NOT PRODUCTION", tone: "accent" },
-];
+// Captions are this mode's own commentary on the shared IDENTITY.cycle words -- presentation,
+// not content. DRUMS is deliberately captioned "not production": plays drums and listens
+// widely, does not produce/compose/sing.
+const CAPTIONS: Record<string, string> = {
+  KRISH: IDENTITY.tagline,
+  DATA: "PATTERNS, PIPELINES, ANALYSIS",
+  CODE: "SYSTEMS THAT RUN",
+  DESIGN: "FORM WITH INTENT",
+  DRUMS: "RHYTHM — NOT PRODUCTION",
+};
 
 const CYCLE_MS = 2400;
 
@@ -48,25 +43,27 @@ const letterVariants = {
   }),
 };
 
-export function HeroTypography() {
+export function EditorialHero() {
   const [index, setIndex] = useState(0);
   const reducedMotion = usePrefersReducedMotion();
   const hoveringRef = useRef(false);
   const stageRef = useRef<HTMLDivElement>(null);
 
-  const current = WORDS[index];
+  const word = IDENTITY.cycle[index];
+  const caption = CAPTIONS[word];
+  const isAnchor = word === IDENTITY.first;
 
   useEffect(() => {
     if (reducedMotion) return;
     const interval = setInterval(() => {
-      if (!hoveringRef.current) setIndex((i) => (i + 1) % WORDS.length);
+      if (!hoveringRef.current) setIndex((i) => (i + 1) % IDENTITY.cycle.length);
     }, CYCLE_MS);
     return () => clearInterval(interval);
   }, [reducedMotion]);
 
   // Cursor-driven tilt + a transient skew on fast scroll, composed into one transform and
   // written directly to the DOM node every frame -- no React re-render in the animation
-  // loop itself, matching the perf pattern already used elsewhere on this site.
+  // loop itself.
   useEffect(() => {
     if (reducedMotion) return;
 
@@ -117,12 +114,12 @@ export function HeroTypography() {
   }, [reducedMotion]);
 
   function advance() {
-    setIndex((i) => (i + 1) % WORDS.length);
+    setIndex((i) => (i + 1) % IDENTITY.cycle.length);
   }
 
   return (
     <div className="relative flex flex-1 flex-col items-center justify-center overflow-hidden text-center">
-      <h1 className="sr-only">Krish Gohel — Full-Stack Data Specialist, Software Developer &amp; Designer</h1>
+      <h1 className="sr-only">{IDENTITY.full} — {IDENTITY.tagline}, Software Developer &amp; Designer</h1>
 
       <div
         ref={stageRef}
@@ -140,18 +137,18 @@ export function HeroTypography() {
         >
           <AnimatePresence initial={false}>
             <motion.div
-              key={current.word}
+              key={word}
               className="absolute inset-0 flex select-none items-center justify-center whitespace-nowrap uppercase leading-[0.82] tracking-tight"
               style={{
                 fontFamily: "var(--font-anton)",
-                fontSize: sizeForWord(current.word),
-                color: current.tone === "accent" ? "var(--accent)" : "var(--fg)",
+                fontSize: sizeForWord(word),
+                color: isAnchor ? "var(--fg)" : "var(--accent)",
               }}
               aria-hidden="true"
             >
-              {current.word.split("").map((ch, i) => (
+              {word.split("").map((ch, i) => (
                 <motion.span
-                  key={`${current.word}-${i}`}
+                  key={`${word}-${i}`}
                   custom={i}
                   variants={letterVariants}
                   initial="initial"
@@ -170,13 +167,13 @@ export function HeroTypography() {
       <div className="relative z-10 mt-4 flex flex-col items-center gap-1.5 px-1 font-meta text-[10px] uppercase tracking-widest text-muted-fg sm:mt-6">
         <AnimatePresence mode="wait" initial={false}>
           <motion.span
-            key={current.caption}
+            key={caption}
             initial={{ opacity: 0, y: 4 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
             transition={{ duration: 0.2 }}
           >
-            {current.caption}
+            {caption}
           </motion.span>
         </AnimatePresence>
         <span>DATA × CODE × DESIGN × MUSIC</span>

@@ -49,7 +49,7 @@
   --chart-tooltip-bg: #0d0d0d;
   --chart-tooltip-fg: #f3f3f1;
   /* Kept mid-weighted (not pure black-to-white) so this ramp still reads on both a light
-     surface (editorial/digital/paper) and a dark one (terminal/nocturne). */
+     surface (swiss/archive) and a dark one (editorial/terminal/kinetic). */
   --chart-cat-1: #2b2b28;
   --chart-cat-2: #45453f;
   --chart-cat-3: #63635c;
@@ -260,25 +260,55 @@
 
 /* ============================================================
    DESIGN MODES — [data-mode]
-   Mostly structure -- type, density, borders, radius, grain, motion
-   -- but terminal and nocturne ALSO force a dark surface (bg/fg/
-   muted/border/chart-neutrals), independent of whichever accent hue
-   the Color scheme supplies. Because these overrides live in a
-   [data-mode] block declared after every [data-color] block, they
-   win the cascade for the properties they touch (bg/fg/etc.) while
-   --accent and the categorical chart-cat-* colors are left alone --
-   so the accent you picked still reads through on a dark surface.
-   Paper (03) is intentionally untouched by any of this.
+   Five art-directors, one content system. Content (data/*.ts, the components that render
+   it) never changes between modes -- everything about how it's PRESENTED does: typeface,
+   case, density, borders, radius, grain, motion, nav placement, card grammar. Editorial and
+   Kinetic ALSO force a dark surface (bg/fg/muted/border/chart-neutrals) as part of their own
+   identity, independent of whichever accent hue the Color scheme supplies -- because these
+   overrides live in a [data-mode] block declared after every [data-color] block, they win
+   the cascade for the properties they touch while --accent and the categorical chart-cat-*
+   colors are left alone, so the accent you picked still reads through on a dark surface.
    ============================================================ */
+
+/* EDITORIAL -- brutalist magazine. Anton dominates the hero; grotesk carries everything
+   else. Near-black/off-white is the mode's own default surface, not a locked palette --
+   --accent still comes from whichever color scheme is active. */
 :root,
 [data-mode="editorial"] {
   --font-display: var(--font-grotesk);
   --tracking-display: -0.02em;
   --radius: 0px;
-  --grain-opacity: 0.05;
+  --grain-opacity: 0.06;
   --motion-scale: 1;
+  --bg: #0a0a0a;
+  --bg-alt: #151515;
+  --fg: #f4f1ea;
+  --muted: #8f8c86;
+  --border: rgba(244, 241, 234, 0.18);
+  --border-strong: rgba(244, 241, 234, 0.8);
+  --chart-grid: rgba(244, 241, 234, 0.1);
+  --chart-axis: #8f8c86;
+  --chart-label: #f4f1ea;
+  --chart-tooltip-bg: #f4f1ea;
+  --chart-tooltip-fg: #0a0a0a;
 }
 
+/* SWISS -- International Typographic Style. Neutral grotesk, flat, light, rational. The
+   opposite of Editorial on purpose: no grain, no shadow, no forced dark surface, tight
+   modular rhythm, and a border color derived from --fg so it stays high-contrast no matter
+   which color scheme is selected. */
+[data-mode="swiss"] {
+  --font-display: var(--font-manrope);
+  --tracking-display: -0.01em;
+  --radius: 0px;
+  --grain-opacity: 0;
+  --motion-scale: 0.85;
+  --section-py: 3.5rem;
+  --border: color-mix(in srgb, var(--fg) 55%, transparent);
+  --border-strong: color-mix(in srgb, var(--fg) 85%, transparent);
+}
+
+/* TERMINAL -- computational console. Monospace, dark, dashed rules, a faint scanline. */
 [data-mode="terminal"] {
   --font-display: var(--font-mono);
   --tracking-display: -0.01em;
@@ -299,30 +329,27 @@
   --chart-tooltip-fg: #06090a;
 }
 
-[data-mode="paper"] {
-  --font-display: var(--font-grotesk);
-  --tracking-display: -0.01em;
+/* ARCHIVE -- personal research notebook. Serif display, warm paper, heavier grain, calmer
+   motion. Never forces its own bg/fg -- it inherits whichever color scheme is active, same
+   as it always has as a light, paper-toned surface. */
+[data-mode="archive"] {
+  --font-display: var(--font-fraunces);
+  --tracking-display: 0.005em;
   --radius: 0px;
   --grain-opacity: 0.17;
   --motion-scale: 0.95;
 }
 
-[data-mode="digital"] {
-  --font-display: var(--font-manrope);
-  --tracking-display: -0.005em;
-  --radius: 14px;
-  --grain-opacity: 0.012;
-  --motion-scale: 1.1;
-  --section-py: 4.5rem;
-}
-
-[data-mode="nocturne"] {
-  --font-display: var(--font-fraunces);
-  --tracking-display: 0.005em;
-  --radius: 10px;
-  --grain-opacity: 0.13;
-  --motion-scale: 1.3;
-  --section-py: 8rem;
+/* KINETIC -- digital experiment. Geometric/expressive display type, a dark atmospheric
+   canvas, generous motion, larger radius for a floating-object feel, and a soft glow behind
+   headings. */
+[data-mode="kinetic"] {
+  --font-display: var(--font-unbounded);
+  --tracking-display: 0.01em;
+  --radius: 20px;
+  --grain-opacity: 0.1;
+  --motion-scale: 1.35;
+  --section-py: 7rem;
   --bg: #0d0c15;
   --bg-alt: #17152a;
   --fg: #eae7f6;
@@ -336,10 +363,10 @@
   --chart-tooltip-fg: #0d0c15;
 }
 
-/* -- Structural personality per mode, applied broadly via plain CSS so the whole site
-   shifts without touching every component. Paper (03) is excluded from all of these. -- */
+/* -- Structural personality per mode: the part that makes each one feel like a different
+   piece of software, not a different coat of paint. -- */
 
-/* Terminal: every border goes dashed, sections compress, and a faint CRT scanline sits
+/* TERMINAL: every border goes dashed, sections compress, and a faint CRT scanline sits
    over everything. */
 [data-mode="terminal"] *:not(.grain-layer) {
   border-style: dashed;
@@ -364,41 +391,49 @@
     transparent 3px
   );
 }
-
-/* Digital: soft elevation on every bordered surface, tighter section rhythm. */
-[data-mode="digital"] .border,
-[data-mode="digital"] .border-border,
-[data-mode="digital"] .border-t,
-[data-mode="digital"] .border-b {
-  box-shadow: 0 1px 2px rgba(10, 10, 20, 0.05), 0 6px 16px rgba(10, 10, 20, 0.06);
-}
-[data-mode="digital"] section {
-  padding-top: var(--section-py);
-  padding-bottom: var(--section-py);
-}
-
-/* Nocturne: generous section rhythm and a soft accent-colored glow behind display type. */
-[data-mode="nocturne"] section {
-  padding-top: var(--section-py);
-  padding-bottom: var(--section-py);
-}
-[data-mode="nocturne"] h1,
-[data-mode="nocturne"] h2 {
-  text-shadow: 0 0 46px color-mix(in srgb, var(--accent) 40%, transparent);
-}
-
 @media (prefers-reduced-motion: reduce) {
   [data-mode="terminal"] body::before {
     display: none;
   }
 }
 
+/* SWISS: sections run tighter and the Data Lab grid drops its dense auto-packing in favor of
+   strict row-major order -- measured, not organic. */
+[data-mode="swiss"] section {
+  padding-top: var(--section-py);
+  padding-bottom: var(--section-py);
+}
+[data-mode="swiss"] [data-shell="gallery"] {
+  grid-auto-flow: row;
+}
+
+/* KINETIC: generous section rhythm and a soft accent-colored glow behind display type. */
+[data-mode="kinetic"] section {
+  padding-top: var(--section-py);
+  padding-bottom: var(--section-py);
+}
+[data-mode="kinetic"] h1,
+[data-mode="kinetic"] h2 {
+  text-shadow: 0 0 46px color-mix(in srgb, var(--accent) 45%, transparent);
+}
+[data-mode="kinetic"] [data-shell="gallery"] {
+  gap: 1rem;
+}
+[data-mode="kinetic"] [data-shell="rows"] > li,
+[data-mode="kinetic"] [data-shell="rows"] article {
+  border-bottom-color: color-mix(in srgb, var(--accent) 28%, transparent);
+}
+[data-mode="kinetic"] [data-shell="rows"] {
+  border-top-color: color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
 /* Mono's accent is defined as near-black -- correct against its own light surface, but
-   invisible once terminal/nocturne force a dark one. Only this specific combination needs
-   correcting; every other color reads fine on a dark surface already (they're all bright,
-   saturated hues to begin with). Acid is untouched -- it isn't part of this rule. */
+   invisible once a mode forces a dark one. Only these combinations need correcting; every
+   other color reads fine on a dark surface already (they're all bright, saturated hues to
+   begin with). Acid is untouched -- it isn't part of this rule. */
+[data-mode="editorial"][data-color="mono"],
 [data-mode="terminal"][data-color="mono"],
-[data-mode="nocturne"][data-color="mono"] {
+[data-mode="kinetic"][data-color="mono"] {
   --accent: #e9e9e3;
   --accent-fg: #0d0d0d;
   --chart-point: #e9e9e3;
@@ -407,12 +442,9 @@
 
 /* ============================================================
    MODE SHELL — layout skeleton
-   This is the part that makes each mode read as a different site, not just a different
-   palette: where the nav lives, how wide the content column runs, and how dense the Data
-   Lab grid packs. Editorial and Paper are the baseline shell (untouched, unstyled here) --
-   Paper stays completely excluded per the standing "don't touch paper" rule, and Editorial
-   is simply what the site looked like before this pass. Terminal, Digital, and Nocturne each
-   get a genuinely different skeleton.
+   Where the nav lives and how wide the content column runs. Archive is deliberately left as
+   the baseline shell (right-mid nav, full-bleed canvas) -- a research notebook should read
+   as calm and static, not structurally loud.
    ============================================================ */
 
 /* TERMINAL: nav becomes a full-width top bar (dashboard-style), content runs edge-to-edge
@@ -454,9 +486,23 @@
   }
 }
 
-/* DIGITAL: nav becomes a floating bottom-center dock, and the whole content column narrows
-   into a single centered feed -- an app shell instead of an edge-to-edge magazine grid. */
-[data-mode="digital"] nav[data-role="section-nav"] {
+/* SWISS: nav mirrors to the left edge as a sharp, square rail -- a catalogue index, not a
+   floating control. Content gets a matching left inset at the breakpoint where the rail
+   actually appears (see SectionNav: lg:flex), wide enough to clear the rail's own width. */
+[data-mode="swiss"] nav[data-role="section-nav"] {
+  right: auto;
+  left: 1.5rem;
+}
+@media (min-width: 1024px) {
+  [data-mode="swiss"] #intro,
+  [data-mode="swiss"] main > section:not(#intro) {
+    padding-left: clamp(11rem, 9vw, 13rem);
+  }
+}
+
+/* KINETIC: nav becomes a floating bottom-center dock -- one more spatial object in the
+   composition instead of a fixed edge rail. */
+[data-mode="kinetic"] nav[data-role="section-nav"] {
   top: auto;
   bottom: 1.75rem;
   right: auto;
@@ -466,95 +512,16 @@
   align-items: center;
   justify-content: center;
   border-radius: var(--radius);
-  box-shadow: 0 8px 30px rgba(10, 10, 20, 0.12);
+  box-shadow: 0 8px 30px rgba(10, 10, 20, 0.35);
 }
-[data-mode="digital"] nav[data-role="section-nav"] #desktop-nav-list {
+[data-mode="kinetic"] nav[data-role="section-nav"] #desktop-nav-list {
   flex-direction: row;
   align-items: center;
   gap: 1.25rem;
 }
-[data-mode="digital"] nav[data-role="section-nav"] #desktop-nav-list > div:last-child {
+[data-mode="kinetic"] nav[data-role="section-nav"] #desktop-nav-list > div:last-child {
   margin-top: 0;
   margin-left: 0.5rem;
-}
-[data-mode="digital"] #intro,
-[data-mode="digital"] main > section:not(#intro) {
-  max-width: 760px;
-  margin-left: auto;
-  margin-right: auto;
-}
-[data-mode="digital"] [data-shell="gallery"] {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-/* NOCTURNE: nav mirrors to the left edge, and content shifts into a wide asymmetric column
-   with a deep inside margin -- an atmospheric, off-center reading column instead of a
-   symmetric one. */
-[data-mode="nocturne"] nav[data-role="section-nav"] {
-  right: auto;
-  left: 1.5rem;
-}
-[data-mode="nocturne"] #intro,
-[data-mode="nocturne"] main > section:not(#intro) {
-  margin-left: clamp(1rem, 4vw, 3rem);
-  margin-right: clamp(1rem, 3vw, 3rem);
-}
-/* The nav rail only appears at lg+ (see SectionNav), so the wider clearance -- wide enough
-   to clear the rail's own width -- only needs to apply there too. */
-@media (min-width: 1024px) {
-  [data-mode="nocturne"] #intro,
-  [data-mode="nocturne"] main > section:not(#intro) {
-    margin-left: clamp(11rem, 9vw, 13rem);
-  }
-}
-[data-mode="nocturne"] [data-shell="gallery"] {
-  gap: 1rem;
-}
-
-/* ------------------------------------------------------------
-   Typography personality: each mode's --font-display is already wired above (grotesk /
-   mono / grotesk / manrope / fraunces); this is the second half -- how that type is CASED
-   and how the two-column sections and row-lists are actually built out of it. Digital reads
-   as lowercase app copy on soft rounded cards; Nocturne keeps display case but leans on the
-   serif's own character; Terminal/Editorial/Paper are untouched (still full-caps grotesk or
-   mono, as authored).
-   ------------------------------------------------------------ */
-[data-mode="digital"] main .font-display {
-  text-transform: lowercase;
-}
-
-/* DIGITAL: the two-column splits (About/Work/Music) stop being a 12-col grid and become a
-   single stacked feed, matching the narrowed app-shell canvas instead of squeezing a wide
-   grid into it. Row-lists (Archive/Contact/Lab Notebook) drop their dividing lines in favor
-   of individually bordered, rounded, shadowed cards. */
-[data-mode="digital"] [data-shell="split"] {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-}
-[data-mode="digital"] [data-shell="rows"] {
-  border-top: none;
-  border-bottom: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
-[data-mode="digital"] [data-shell="rows"] > li,
-[data-mode="digital"] [data-shell="rows"] article {
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 0.85rem 1.1rem;
-  box-shadow: 0 1px 2px rgba(10, 10, 20, 0.05), 0 6px 16px rgba(10, 10, 20, 0.06);
-}
-
-/* NOCTURNE: row-lists lose their hard borders in favor of a soft accent-tinted hairline, in
-   keeping with the atmospheric, borderless-feeling magazine layout. */
-[data-mode="nocturne"] [data-shell="rows"] > li,
-[data-mode="nocturne"] [data-shell="rows"] article {
-  border-bottom-color: color-mix(in srgb, var(--accent) 28%, transparent);
-}
-[data-mode="nocturne"] [data-shell="rows"] {
-  border-top-color: color-mix(in srgb, var(--accent) 28%, transparent);
 }
 
 @theme inline {
@@ -618,9 +585,9 @@ body {
   color: var(--muted);
 }
 
-/* Paper mode gets a stacked-paper offset outline instead of a plain border, one of the
+/* Archive mode gets a stacked-paper offset outline instead of a plain border, one of the
    "depth without shadows" treatments applied to a few key surfaces. */
-[data-mode="paper"] .paper-stack {
+[data-mode="archive"] .paper-stack {
   box-shadow: 4px 4px 0 0 var(--border);
 }
 
