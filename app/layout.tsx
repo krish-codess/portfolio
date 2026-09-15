@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, IBM_Plex_Mono, Manrope, Fraunces } from "next/font/google";
+import { Space_Grotesk, IBM_Plex_Mono, Manrope, Fraunces, Anton } from "next/font/google";
 import "./globals.css";
 import { AppearanceProvider, APPEARANCE_INIT_SCRIPT } from "@/lib/theme/AppearanceProvider";
 import { FocusProvider } from "@/lib/focus/FocusContext";
@@ -39,6 +39,15 @@ const fraunces = Fraunces({
   style: ["normal", "italic"],
 });
 
+// The hero's own typeface -- massive, condensed, ultra-heavy. Fixed across every color/mode
+// combination on purpose: the hero is the site's cover page, not another themed section.
+const anton = Anton({
+  subsets: ["latin"],
+  variable: "--font-anton",
+  display: "swap",
+  weight: ["400"],
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://krishgohel.dev"),
   title: "KRISH GOHEL — DATA × CODE × DESIGN × MUSIC",
@@ -63,7 +72,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${grotesk.variable} ${plexMono.variable} ${manrope.variable} ${fraunces.variable}`}
+      className={`${grotesk.variable} ${plexMono.variable} ${manrope.variable} ${fraunces.variable} ${anton.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: APPEARANCE_INIT_SCRIPT }} />

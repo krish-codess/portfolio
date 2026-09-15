@@ -406,6 +406,28 @@
 }
 
 /* ============================================================
+   HERO — fixed cover-page identity
+   The hero is the site's masthead, not another themed section: it stays near-black with a
+   bright red accent and off-white type in every color scheme and every design mode (Paper
+   included). Achieved by overriding the real --bg/--fg/--accent/--border tokens locally on
+   #intro (an ID selector beats every [data-mode]/[data-color] attribute selector regardless
+   of source order) so every existing bg-background/text-foreground/text-accent/border-border
+   utility already used across the site resolves correctly here with zero extra classes.
+   ============================================================ */
+#intro {
+  --bg: #0a0a0a;
+  --bg-alt: #141414;
+  --fg: #f4f1ea;
+  --muted: #8f8c86;
+  --accent: #ff3b2f;
+  --accent-fg: #0a0a0a;
+  --border: rgba(244, 241, 234, 0.16);
+  --border-strong: rgba(244, 241, 234, 0.7);
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+/* ============================================================
    MODE SHELL — layout skeleton
    This is the part that makes each mode read as a different site, not just a different
    palette: where the nav lives, how wide the content column runs, and how dense the Data
