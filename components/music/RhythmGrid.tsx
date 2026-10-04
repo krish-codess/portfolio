@@ -124,7 +124,7 @@ export function RhythmGrid() {
   }
 
   return (
-    <div className="paper-stack rounded-[var(--radius)] border border-border p-5 sm:p-6">
+    <div className="rounded-[var(--radius)] border border-border p-5 sm:p-6">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <Meta>{isPlaying ? "RUNNING" : "STOPPED"}</Meta>
         <Meta>CUSTOM PATTERN · SYNTHESIZED DRUMS</Meta>

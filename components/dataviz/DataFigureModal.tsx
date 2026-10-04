@@ -24,7 +24,7 @@ function ModalContent({ figure, index, onClose }: { figure: DataFigure; index: n
       exit={{ opacity: 0, scale: 0.97 }}
       transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
       onClick={(e) => e.stopPropagation()}
-      className="paper-stack relative grid w-full max-w-3xl grid-cols-1 gap-6 rounded-[var(--radius)] border border-border bg-background p-6 sm:grid-cols-12 sm:p-8"
+      className="relative grid w-full max-w-3xl grid-cols-1 gap-6 rounded-[var(--radius)] border border-border bg-background p-6 sm:grid-cols-12 sm:p-8"
     >
       <div className="sm:col-span-4">
         <Meta className="text-accent">FIG. {figure.fig}</Meta>

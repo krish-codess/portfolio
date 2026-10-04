@@ -2,69 +2,39 @@
 
 import { createContext, useCallback, useContext, useMemo, useSyncExternalStore } from "react";
 import { ColorSchemeId, COLOR_STORAGE_KEY, DEFAULT_COLOR, isColorSchemeId } from "./colorSchemes";
-import { DesignModeId, MODE_STORAGE_KEY, DEFAULT_MODE, isDesignModeId } from "./designModes";
 
 interface AppearanceContextValue {
   colorScheme: ColorSchemeId;
   setColorScheme: (id: ColorSchemeId) => void;
-  designMode: DesignModeId;
-  setDesignMode: (id: DesignModeId) => void;
 }
 
 const AppearanceContext = createContext<AppearanceContextValue | null>(null);
 
-// Two independent attributes on <html>, set before hydration so there's no flash. They are
-// deliberately separate DOM attributes (not one combined value) so the two axes can never
-// accidentally become coupled.
-//
-// Mode has one extra rule: until a visitor explicitly picks one (which persists from then
-// on), the STARTING mode each visit is chosen from local time of day -- morning/midday get
-// a light mode, evening/night get a dark one. Picking a mode by hand always wins after that.
+// Set before hydration so there's no flash of the wrong accent.
 export const APPEARANCE_INIT_SCRIPT = `
 (function () {
   try {
     var color = localStorage.getItem("${COLOR_STORAGE_KEY}") || "${DEFAULT_COLOR}";
-    var mode = localStorage.getItem("${MODE_STORAGE_KEY}");
-    if (!mode) {
-      var h = new Date().getHours();
-      if (h >= 5 && h < 11) mode = "editorial";
-      else if (h >= 11 && h < 17) mode = "swiss";
-      else if (h >= 17 && h < 21) mode = "terminal";
-      else mode = "kinetic";
-    }
     document.documentElement.setAttribute("data-color", color);
-    document.documentElement.setAttribute("data-mode", mode);
   } catch (e) {
     document.documentElement.setAttribute("data-color", "${DEFAULT_COLOR}");
-    document.documentElement.setAttribute("data-mode", "${DEFAULT_MODE}");
   }
 })();
 `;
 
-function subscribeToAttribute(attr: string) {
-  return (callback: () => void) => {
-    const observer = new MutationObserver(callback);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: [attr] });
-    return () => observer.disconnect();
-  };
+function subscribeColor(callback: () => void) {
+  const observer = new MutationObserver(callback);
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-color"] });
+  return () => observer.disconnect();
 }
-
-const subscribeColor = subscribeToAttribute("data-color");
-const subscribeMode = subscribeToAttribute("data-mode");
 
 function getColorSnapshot(): ColorSchemeId {
   const attr = document.documentElement.getAttribute("data-color");
   return isColorSchemeId(attr) ? attr : DEFAULT_COLOR;
 }
 
-function getModeSnapshot(): DesignModeId {
-  const attr = document.documentElement.getAttribute("data-mode");
-  return isDesignModeId(attr) ? attr : DEFAULT_MODE;
-}
-
 export function AppearanceProvider({ children }: { children: React.ReactNode }) {
   const colorScheme = useSyncExternalStore(subscribeColor, getColorSnapshot, () => DEFAULT_COLOR);
-  const designMode = useSyncExternalStore(subscribeMode, getModeSnapshot, () => DEFAULT_MODE);
 
   const setColorScheme = useCallback((id: ColorSchemeId) => {
     document.documentElement.setAttribute("data-color", id);
@@ -75,19 +45,7 @@ export function AppearanceProvider({ children }: { children: React.ReactNode }) 
     }
   }, []);
 
-  const setDesignMode = useCallback((id: DesignModeId) => {
-    document.documentElement.setAttribute("data-mode", id);
-    try {
-      localStorage.setItem(MODE_STORAGE_KEY, id);
-    } catch {
-      // storage unavailable, mode still applies for this session
-    }
-  }, []);
-
-  const value = useMemo(
-    () => ({ colorScheme, setColorScheme, designMode, setDesignMode }),
-    [colorScheme, setColorScheme, designMode, setDesignMode]
-  );
+  const value = useMemo(() => ({ colorScheme, setColorScheme }), [colorScheme, setColorScheme]);
 
   return <AppearanceContext.Provider value={value}>{children}</AppearanceContext.Provider>;
 }

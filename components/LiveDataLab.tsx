@@ -3,16 +3,14 @@
 import { useSessionStats } from "@/lib/hooks/useSessionStats";
 import { useAppearance } from "@/lib/theme/AppearanceProvider";
 import { COLOR_SCHEMES } from "@/lib/theme/colorSchemes";
-import { DESIGN_MODES } from "@/lib/theme/designModes";
 import { formatTime } from "@/lib/utils";
 import { DATA_FIGURES } from "@/data/data-figures";
 import { Meta } from "@/components/typography/Meta";
 
 export function LiveDataLab({ visitedCount, totalSections }: { visitedCount: number; totalSections: number }) {
   const stats = useSessionStats();
-  const { colorScheme, designMode } = useAppearance();
+  const { colorScheme } = useAppearance();
   const colorMeta = COLOR_SCHEMES.find((c) => c.id === colorScheme);
-  const modeMeta = DESIGN_MODES.find((m) => m.id === designMode);
   const dataPoints = DATA_FIGURES.reduce((acc, f) => {
     if (Array.isArray(f.data)) return acc + f.data.length;
     if ("cells" in f.data) return acc + f.data.cells.length;
@@ -24,7 +22,7 @@ export function LiveDataLab({ visitedCount, totalSections }: { visitedCount: num
     ["SECTIONS VISITED", `${visitedCount} / ${totalSections}`],
     ["SCROLL DISTANCE", `${stats.scrollMeters.toFixed(1)} M`],
     ["CURSOR TRAVEL", `${stats.pointerMeters.toFixed(1)} M`],
-    ["COLOR / MODE", `${colorMeta?.name ?? "—"} / ${modeMeta?.name ?? "—"}`],
+    ["COLOR", colorMeta?.name ?? "—"],
     ["DATA POINTS ON PAGE", String(dataPoints)],
   ];
 

@@ -44,7 +44,7 @@ export function DataCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-8% 0px" }}
       transition={{ duration: 0.45, delay: Math.min(index * 0.03, 0.25), ease: [0.16, 1, 0.3, 1] }}
-      className={`paper-stack group relative flex flex-col rounded-[var(--radius)] border border-border/70 p-2.5 transition-colors hover:border-border sm:p-3 ${SPAN_CLASSES[figure.size]} ${HEIGHT_CLASSES[figure.size]}`}
+      className={`group relative flex flex-col rounded-[var(--radius)] border border-border/70 p-2.5 transition-colors hover:border-border sm:p-3 ${SPAN_CLASSES[figure.size]} ${HEIGHT_CLASSES[figure.size]}`}
     >
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0">

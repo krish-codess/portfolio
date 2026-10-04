@@ -10,7 +10,6 @@ import { SurpriseMe } from "@/components/SurpriseMe";
 import { EasterEgg } from "@/components/EasterEgg";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/sections/Hero";
-import { ChooseYourFighter } from "@/sections/ChooseYourFighter";
 import { IdentityIntro } from "@/sections/IdentityIntro";
 import { Work } from "@/sections/Work";
 import { DataLab } from "@/sections/DataLab";
@@ -18,6 +17,7 @@ import { Music } from "@/sections/Music";
 import { LabNotebook } from "@/sections/LabNotebook";
 import { Archive } from "@/sections/Archive";
 import { About } from "@/sections/About";
+import { Codetober } from "@/sections/Codetober";
 import { Contact } from "@/sections/Contact";
 
 const SECTION_IDS = NAV_ITEMS.map((n) => n.id);
@@ -36,7 +36,6 @@ export default function Home() {
 
       <main data-cursor="...">
         <Hero />
-        <ChooseYourFighter />
         <IdentityIntro />
         <Work />
         <DataLab visitedCount={visitedCount} totalSections={SECTION_IDS.length} />
@@ -44,6 +43,7 @@ export default function Home() {
         <LabNotebook />
         <Archive />
         <About />
+        <Codetober />
         <Contact />
       </main>
 

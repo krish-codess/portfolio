@@ -3,7 +3,7 @@ import { Meta } from "@/components/typography/Meta";
 
 export function PlaylistList() {
   return (
-    <div className="paper-stack rounded-[var(--radius)] border border-border">
+    <div className="rounded-[var(--radius)] border border-border">
       <div className="flex items-center justify-between border-b border-border px-4 py-3 sm:px-5">
         <h4 className="font-display text-sm uppercase tracking-tight">PLAYLISTS</h4>
         <Meta>PLACEHOLDER -- LINK PENDING</Meta>

@@ -6,7 +6,7 @@ export function Contact() {
   return (
     <section id="contact" className="border-t border-border px-5 py-24 sm:px-8 sm:py-32">
       <Reveal>
-        <SectionLabel index="08" label="CONTACT" />
+        <SectionLabel index="09" label="CONTACT" />
       </Reveal>
 
       <Reveal delay={0.05}>
@@ -23,7 +23,7 @@ export function Contact() {
       </Reveal>
 
       <Reveal delay={0.15}>
-        <ul data-shell="rows" className="mt-14 flex flex-col divide-y divide-border border-y border-border">
+        <ul className="mt-14 flex flex-col divide-y divide-border border-y border-border">
           {SOCIALS.map((social) => (
             <li key={social.label}>
               <a
