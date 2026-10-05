@@ -94,7 +94,7 @@ export default async function CodetoberDayPage({ params }: PageProps<"/codetober
             <div className="flex flex-wrap gap-x-8 gap-y-3">
               {project.github && (
                 <a href={project.github} target="_blank" rel="noopener noreferrer" className={LINK_CLASS} aria-label={`${project.title} source on GitHub`}>
-                  GITHUB →
+                  VIEW ON GITHUB →
                 </a>
               )}
               {project.demo && (
