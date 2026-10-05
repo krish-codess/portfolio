@@ -85,7 +85,15 @@ export const CODETOBER_2026: CodetoberEdition = {
       details:
         "tydlc generates thousands of hostile but referentially valid rows, runs a real transformation pipeline over them, checks properties of the transformation (not fixed expected outputs), discovers the invariants the pipeline actually relies on, and shrinks every failure to the smallest dataset that still breaks.",
     },
-    { day: 5 },
+    {
+      day: 5,
+      title: "SHIP",
+      // TODO(krish): SHIP has no README yet -- add description and technologies when it does.
+      description: "",
+      technologies: [],
+      status: "completed",
+      github: `${REPO}/SHIP`,
+    },
     { day: 6 },
     { day: 7 },
     { day: 8 },

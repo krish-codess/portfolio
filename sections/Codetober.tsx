@@ -68,7 +68,8 @@ function Card({ project, today }: { project: CodetoberProject; today: number }) 
           )}
         </div>
         {project.description && <p className="mt-2 line-clamp-3 break-words font-meta text-[10px] leading-relaxed text-muted-fg">{project.description}</p>}
-        <div className="mt-2 font-meta text-[10px] uppercase tracking-wide text-muted-fg">{stack || "—"}</div>
+        {/* The dash keeps unwritten days looking intentional; a shipped card just omits the line. */}
+        {(stack || !shipped) && <div className="mt-2 font-meta text-[10px] uppercase tracking-wide text-muted-fg">{stack || "—"}</div>}
       </div>
       <div className={cx("mt-auto pt-4 font-meta text-[10px] uppercase tracking-widest", shipped || isToday ? "text-accent" : "text-muted-fg")}>
         {shipped && project.github && (
