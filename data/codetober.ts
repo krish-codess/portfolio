@@ -94,7 +94,16 @@ export const CODETOBER_2026: CodetoberEdition = {
       status: "completed",
       github: `${REPO}/SHIP`,
     },
-    { day: 6 },
+    {
+      day: 6,
+      title: "LAKE",
+      description: "The Compression Bake-Off: one dataset, every format and codec, measured in bytes read and dollars.",
+      technologies: ["Python", "PyArrow", "DuckDB", "Polars", "FastAPI", "TypeScript"],
+      status: "completed",
+      github: `${REPO}/LAKE`,
+      details:
+        "One CSV, written as 24 variants across CSV, Parquet, ORC and Avro, every codec, several row-group and stripe sizes. A fixed query workload runs against each one and records wall time (cold and warm), bytes actually read from storage, and read calls. A cost model turns that into monthly cloud spend for a workload you describe.",
+    },
     { day: 7 },
     { day: 8 },
     { day: 9 },
