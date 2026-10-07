@@ -104,7 +104,15 @@ export const CODETOBER_2026: CodetoberEdition = {
       details:
         "One CSV, written as 24 variants across CSV, Parquet, ORC and Avro, every codec, several row-group and stripe sizes. A fixed query workload runs against each one and records wall time (cold and warm), bytes actually read from storage, and read calls. A cost model turns that into monthly cloud spend for a workload you describe.",
     },
-    { day: 7 },
+    {
+      day: 7,
+      title: "MEASURE",
+      description: "Your App, Wrapped: a year-in-review for every user, with percentile claims that are true by construction.",
+      technologies: ["Python", "DuckDB", "dbt", "FastAPI", "PostgreSQL"],
+      status: "completed",
+      github: `${REPO}/MEASURE`,
+      // TODO(krish): MEASURE has no README yet, so there is no `details` copy to use.
+    },
     { day: 8 },
     { day: 9 },
     { day: 10 },
