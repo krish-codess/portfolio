@@ -113,7 +113,15 @@ export const CODETOBER_2026: CodetoberEdition = {
       github: `${REPO}/MEASURE`,
       // TODO(krish): MEASURE has no README yet, so there is no `details` copy to use.
     },
-    { day: 8 },
+    {
+      day: 8,
+      title: "VISION",
+      description: "Squeeze: compress a vision model for edge boards and measure the real accuracy, latency and power tradeoff.",
+      technologies: ["Python", "PyTorch", "ONNX Runtime", "OpenVINO", "FastAPI", "SQLite", "React", "TypeScript"],
+      status: "completed",
+      github: `${REPO}/VISION`,
+      // TODO(krish): VISION has no README yet, so there is no `details` copy to use.
+    },
     { day: 9 },
     { day: 10 },
     { day: 11 },
