@@ -126,9 +126,36 @@ export const CODETOBER_2026: CodetoberEdition = {
       details:
         "A ResNet-50 teacher is pruned, a MobileNetV3-Small student is distilled from it, and both are quantized to INT8. Every step is exported to ONNX and re-checked against an accuracy gate before it counts.\n\nThe surviving models are packed per device together with a single-file benchmark harness; the harness uploads what it measured to an API, and a web explorer plots accuracy against cost for each target.",
     },
-    { day: 9 },
-    { day: 10 },
-    { day: 11 },
+    {
+      day: 9,
+      title: "RENDER",
+      description: "A Million Dots: every point of a 1.19-million-token embedding space, drawn on the GPU, with a lasso that reports statistics while the mouse button is still down.",
+      technologies: ["Python", "UMAP", "DuckDB", "FastAPI", "regl", "DuckDB-WASM", "React", "TypeScript"],
+      status: "completed",
+      github: `${REPO}/RENDER`,
+      details:
+        "A batch pipeline projects the vectors to 2-D (PCA as the baseline, UMAP variants) and cuts each projection into level-of-detail tiles served as binary buffers. The page draws them with regl as instanced triangles into a floating-point target and tone-maps the accumulated density.\n\nA web worker holds a quadtree over the loaded points for hover and lasso; DuckDB-WASM holds the metadata and describes the selected tokens. After the files are downloaded, nothing talks to a server.",
+    },
+    {
+      day: 10,
+      title: "INFER",
+      description: "Who actually needed the discount: uplift modelling on randomized experiments, turned into a budget-constrained targeting policy.",
+      technologies: ["Python", "EconML", "scikit-learn", "FastAPI", "PostgreSQL", "React", "TypeScript"],
+      status: "completed",
+      github: `${REPO}/INFER`,
+      details:
+        "A promotion sent to everyone is mostly spent on people who would have bought anyway, and some of it on people it puts off.\n\nThis system takes a randomized experiment, trains several uplift learners on identical data, compares them on Qini and uplift curves (never on classification accuracy), finds the segments the treatment hurts, and turns the best model into a budget-constrained targeting policy that is valued against treating everyone and treating no one, then exported for activation.",
+    },
+    {
+      day: 11,
+      title: "INGEST",
+      description: "Ghost Fleet: track ships in real time from AIS, and catch the ones that switch off their transponders and vanish.",
+      technologies: ["Python", "Kafka", "PostgreSQL", "PostGIS", "FastAPI", "deck.gl", "React", "TypeScript", "Prometheus", "Grafana"],
+      status: "completed",
+      github: `${REPO}/INGEST`,
+      details:
+        "Async collectors hold long-lived connections to AIS providers, decode NMEA sentences and push positions into Kafka. A consumer group deduplicates them into PostGIS.\n\nA gap detector separates receiver coverage holes from vessels that deliberately went dark, and scores reappearances that would have needed an impossible speed. A deck.gl map shows the live fleet and replays any vessel's track.",
+    },
     { day: 12 },
     { day: 13 },
     { day: 14 },
