@@ -45,7 +45,7 @@ const REPO = "https://github.com/krish-codess/codetober-2026/tree/main";
 export const CODETOBER_2026: CodetoberEdition = {
   year: 2026,
   projects: [
-    // Copy for days 1-4 is taken from the codetober-2026 READMEs.
+    // Copy is taken from the codetober-2026 READMEs.
     {
       day: 1,
       title: "EMIT",
@@ -63,7 +63,8 @@ export const CODETOBER_2026: CodetoberEdition = {
       technologies: ["Python", "FastAPI", "scikit-learn", "ONNX Runtime", "PostgreSQL", "React", "TypeScript"],
       status: "completed",
       github: `${REPO}/PARSE`,
-      // TODO(krish): PARSE has no README yet, so there is no `details` copy to use.
+      details:
+        "Sorts multilingual customer feedback into a 241-node, three-level taxonomy (domain, entity, attribute), with a labelling loop that decides what a person should label next and a taxonomy that can change without throwing labels away.\n\nMeasured on real review text in 12 languages (M-ABSA), with results reported as measured, including the negative one: active learning did not beat random sampling here. A child label implies its parent by construction and by database trigger.",
     },
     {
       day: 3,
@@ -88,17 +89,18 @@ export const CODETOBER_2026: CodetoberEdition = {
     {
       day: 5,
       title: "SHIP",
-      // TODO(krish): SHIP has no README yet -- add description and technologies when it does.
-      description: "",
-      technologies: [],
+      description: "shipd: a zero-downtime schema migration controller. Plans a diff against the live schema and applies it as expand/contract with lock guards and auto-revert, while two application versions keep serving traffic.",
+      technologies: ["Go", "pgroll", "PostgreSQL", "React", "TypeScript", "Prometheus", "Grafana"],
       status: "completed",
       github: `${REPO}/SHIP`,
+      details:
+        "A controller that changes a PostgreSQL schema while the application keeps writing to it. You describe the schema you want; shipd diffs it against the live one, plans an expand/contract migration, shows the locks each step takes, and drives it with pgroll. A guard watches locks and errors the whole time and reverts the migration if the application starts to suffer.\n\nThe demonstration is an order table whose amount column is free text and has to become amount_cents bigint, while application version v1 keeps writing text and v2 starts writing integers.",
     },
     {
       day: 6,
       title: "LAKE",
       description: "The Compression Bake-Off: one dataset, every format and codec, measured in bytes read and dollars.",
-      technologies: ["Python", "PyArrow", "DuckDB", "Polars", "FastAPI", "TypeScript"],
+      technologies: ["Python", "PyArrow", "DuckDB", "Polars", "FastAPI", "React", "TypeScript"],
       status: "completed",
       github: `${REPO}/LAKE`,
       details:
@@ -108,10 +110,11 @@ export const CODETOBER_2026: CodetoberEdition = {
       day: 7,
       title: "MEASURE",
       description: "Your App, Wrapped: a year-in-review for every user, with percentile claims that are true by construction.",
-      technologies: ["Python", "DuckDB", "dbt", "FastAPI", "PostgreSQL"],
+      technologies: ["Python", "dbt", "DuckDB", "FastAPI", "PostgreSQL", "React", "TypeScript"],
       status: "completed",
       github: `${REPO}/MEASURE`,
-      // TODO(krish): MEASURE has no README yet, so there is no `details` copy to use.
+      details:
+        "A batch pipeline turns a year of usage events into per-user aggregates, ranks each user against the population with quantile sketches, picks the most interesting things that are genuinely true about each person, and serves the result as an animated story with share cards rendered on the server.\n\nA quantile sketch per metric proposes thresholds, and one hash aggregation then counts exactly how many users clear each one, so a user in the top 5.2% is told \"top 10%\". Before a run can be published, an audit re-checks every number and every claim against the warehouse. One violation and nothing is published.",
     },
     {
       day: 8,
@@ -120,7 +123,8 @@ export const CODETOBER_2026: CodetoberEdition = {
       technologies: ["Python", "PyTorch", "ONNX Runtime", "OpenVINO", "FastAPI", "SQLite", "React", "TypeScript"],
       status: "completed",
       github: `${REPO}/VISION`,
-      // TODO(krish): VISION has no README yet, so there is no `details` copy to use.
+      details:
+        "A ResNet-50 teacher is pruned, a MobileNetV3-Small student is distilled from it, and both are quantized to INT8. Every step is exported to ONNX and re-checked against an accuracy gate before it counts.\n\nThe surviving models are packed per device together with a single-file benchmark harness; the harness uploads what it measured to an API, and a web explorer plots accuracy against cost for each target.",
     },
     { day: 9 },
     { day: 10 },
