@@ -34,7 +34,7 @@ export const SITE = {
 export const SOCIALS = [
   { label: "RESUME", href: SITE.resumeUrl },
   { label: "EMAIL", href: `mailto:${SITE.email}` },
-  { label: "GITHUB", href: "#" },
+  { label: "GITHUB", href: "https://github.com/krish-codess" },
   { label: "LINKEDIN", href: "#" },
   { label: "INSTAGRAM", href: "#" },
 ] as const;
