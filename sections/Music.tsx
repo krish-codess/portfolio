@@ -2,6 +2,7 @@ import { SectionLabel } from "@/components/typography/Meta";
 import { Reveal } from "@/components/typography/Reveal";
 import { RhythmGrid } from "@/components/music/RhythmGrid";
 import { PlaylistList } from "@/components/music/PlaylistList";
+import { QuickDial } from "@/components/music/QuickDial";
 
 export function Music() {
   return (
@@ -33,7 +34,10 @@ export function Music() {
         </div>
         <div className="lg:col-span-5">
           <Reveal delay={0.1}>
-            <PlaylistList />
+            <div className="space-y-6">
+              <QuickDial />
+              <PlaylistList />
+            </div>
           </Reveal>
         </div>
       </div>

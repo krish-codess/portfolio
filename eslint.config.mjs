@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Quick Dial: Deno Edge Function entry, browser extension and Android app have their own runtimes.
+    "supabase/functions/quick-dial/**",
+    "integrations/**",
   ]),
 ]);
 

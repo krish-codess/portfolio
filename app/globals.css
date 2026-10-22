@@ -448,3 +448,27 @@ html.rhythm-live .rhythm-pulse-target {
     padding-right: 15rem;
   }
 }
+
+/* Quick Dial: equalizer + live dot. Motion only while LIVE, and never under reduced motion. */
+.qd-eq span {
+  height: 30%;
+}
+.qd-eq-on span {
+  animation: qd-eq calc(0.9s * var(--motion-scale)) ease-in-out infinite alternate;
+}
+@keyframes qd-eq {
+  0% { height: 20%; }
+  100% { height: 100%; }
+}
+.qd-live-dot {
+  animation: pulse-soft 1.6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .qd-eq-on span,
+  .qd-live-dot {
+    animation: none;
+  }
+  .qd-eq-on span {
+    height: 70%;
+  }
+}

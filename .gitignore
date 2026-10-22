@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Quick Dial: placeholder-only env templates are committed
+!.env.example
+# local Supabase CLI state
+supabase/.temp/
+supabase/.branches/
